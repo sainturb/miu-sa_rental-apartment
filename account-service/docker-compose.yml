@@ -1,0 +1,25 @@
+version: '3.0'
+
+services:
+  service:
+    container_name: service
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 8081:8081
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/account
+    depends_on:
+      - account-db
+  account-db:
+    image: postgres
+    container_name: account-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: account
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
