@@ -20,7 +20,7 @@
         Preferred payment
 
 #### APIs
-```http request
+```
 🌐 /api/uaa/authenticate [POST] {username: String, password: String}
 🛡 /api/uaa/logout [DELETE]
 🛡 /api/uaa/check [GET]
@@ -37,7 +37,7 @@
         Update address: update address according to userId
     userId is store in the token
 #### APIs
-```http request
+```
 🌐 /api/address/ship [POST] body: empty
 🛡 /api/address/shipping [POST] body: Address
 🛡 /api/address/shipping/{id} [PUT] body: Address
@@ -53,7 +53,7 @@
     Product service stores all the product information.
     We used batch processing to insert 1000 fake data to DB.
 #### APIs
-```http request
+```
 🛡 /api/products [CRUD] query parameters will filter products
 🌐 /api/search [GET] query parameters {name, description, category, price.lessThan, price.greaterThan}
 🌐 /api/products/{id}/reduce-stocks/{count} [PUT] reduce stock when user orders products
@@ -65,21 +65,21 @@
 
     (We will store it inside the token)
 #### APIs
-```http request
+```
 🛡 /api/checkout [POST]
 ```
 ### Credit service : 8086
 #### APIs
-```http request
+```
 🌐 /api/pay [POST]
 ```
 ### Bank service : 8087
 #### APIs
-```http request
+```
 🌐 /api/pay [POST]
 ```
 ### Paypal service : 8088
 #### APIs
-```http request
+```
 🌐 /api/pay [POST]
 ```
