@@ -40,8 +40,11 @@
 ### Product service : 8084
     
     Product service stores all the product information.
+    We used batch processing to insert 1000 fake data to DB.
 
-    /api/products [GET] query parameters will filter products
+    /api/products [CRUD] query parameters will filter products
+    /api/search [GET] query parameters {name, description, category, price.lessThan, price.greaterThan}
+    /api/products/{id}/reduce-stocks/{count} [PUT] reduce stock when user orders products
 
 ### Payment service : 8085
 
