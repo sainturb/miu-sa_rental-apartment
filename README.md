@@ -54,8 +54,14 @@
     (We will store it inside the token)
 
 ### Credit service : 8086
+
     /api/pay [POST]
+
 ### Bank service : 8087
+
     /api/pay [POST]
+
 ### Paypal service : 8088
+
     /api/pay [POST]
+
