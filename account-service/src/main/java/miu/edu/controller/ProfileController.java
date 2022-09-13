@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -15,9 +16,9 @@ import java.util.List;
 @CrossOrigin
 public class ProfileController {
     private final UserServiceImpl service;
-
-    @PutMapping("/payment-method/{id}")
-    public void update(@PathVariable Long id, @RequestBody UserDTO user) {
+    @PutMapping("/payment-method")
+    public void update(Principal principal, @RequestBody UserDTO user) {
+        Long id = null;
         service.updatePaymentMethod(id, user.getPreferredPayment());
     }
 }
