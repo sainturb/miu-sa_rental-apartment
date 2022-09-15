@@ -21,6 +21,15 @@ spring:
       mode: always
   application:
     name: account-service
+#  cloud:
+#    consul:
+#      discovery:
+#        healthCheckPath: /actuator/health
+#        instanceId: ${spring.application.name:${random.value}}
+#        service-name: account-service
+#      config:
+#        watch:
+#          enabled: false
 
 server:
   port: 8081
