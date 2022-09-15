@@ -8,7 +8,13 @@ spec:
   servers:
     - port:
         number: 80
-        name: account
+        name: account-service
         protocol: HTTP
       hosts:
         - "account.dev"
+    - port:
+        number: 80
+        name: product-service
+        protocol: HTTP
+      hosts:
+        - "product.dev"

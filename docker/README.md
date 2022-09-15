@@ -13,5 +13,5 @@ docker node ls
 ```shell
 docker stack deploy --compose-file docker-compose.yml cloud
 
-#docker-compose up -d --scale account-service.yml=3
+#docker-compose up -d --scale product-service.yml=3
 ```

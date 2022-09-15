@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: product-config
+  labels:
+    app: product-service
+data:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://product-database:5432/postgres

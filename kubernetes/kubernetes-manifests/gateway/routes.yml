@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: account-route
+spec:
+  hosts:
+    - "account.dev"
+  gateways:
+    - gateway # <---- bind to gateway
+  http:
+      - route:
+        - destination:
+            host: account-service.default.svc.cluster.local
+            port:
+              number: 8081
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: product-route
+spec:
+  hosts:
+    - "product.dev"
+  gateways:
+    - gateway # <---- bind to gateway
+  http:
+    - route:
+        - destination:
+            host: product-service.default.svc.cluster.local
+            port:
+              number: 8084

@@ -18,8 +18,8 @@ docker build -t account-service .
 #cd ../paypal-service
 #docker build -t paypal-service .
 #
-#cd ../product-service
-#docker build -t product-service .
+cd ../product-service
+docker build -t product-service .
 #
 #cd ../shipment-service
 #docker build -t shipment-service .

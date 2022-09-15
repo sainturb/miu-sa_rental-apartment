@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-database  # Sets Deployment name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-database
+  template:
+    metadata:
+      labels:
+        app: product-database
+        version: v1
+    spec:
+      containers:
+        - name: product-database
+          image: postgres # Sets Image
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432  # Exposes container port
+          envFrom:
+            - configMapRef:
+                name: product-db-config
+#          volumeMounts:
+#            - mountPath: /var/lib/postgresql/data
+#              name: postgres-db
+#      volumes:
+#        - name: postgres-db
+#          persistentVolumeClaim:
+#            claimName: db2-pv-claim

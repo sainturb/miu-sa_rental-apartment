@@ -14,7 +14,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
   account-service:
-    container_name: account-service.yml
+    container_name: product-service.yml
     image: account-service:latest
     deploy:
       mode: replicated
