@@ -4,15 +4,15 @@ metadata:
   name: estore
 spec:
   hosts:
-    - "*"
+    - "account.dev"
   gateways:
     - gateway # <---- bind to gateway
   http:
-    - match:
-      - uri:
-          prefix: /account
-      route:
+#    - match:
+#      - uri:
+#          prefix: /account
+      - route:
         - destination:
-            host: account
+            host: account.default.svc.cluster.local
             port:
               number: 8081
