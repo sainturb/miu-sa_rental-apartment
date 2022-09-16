@@ -18,3 +18,9 @@ spec:
         protocol: HTTP
       hosts:
         - "product.dev"
+    - port:
+        number: 80
+        name: order-service
+        protocol: HTTP
+      hosts:
+        - "order.dev"

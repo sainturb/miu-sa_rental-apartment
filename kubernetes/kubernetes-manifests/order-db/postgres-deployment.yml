@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-database  # Sets Deployment name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-database
+  template:
+    metadata:
+      labels:
+        app: order-database
+        version: v1
+    spec:
+      containers:
+        - name: order-database
+          image: postgres # Sets Image
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432  # Exposes container port
+          envFrom:
+            - configMapRef:
+                name: order-db-config
+#          volumeMounts:
+#            - mountPath: /var/lib/postgresql/data
+#              name: postgres-db
+#      volumes:
+#        - name: postgres-db
+#          persistentVolumeClaim:
+#            claimName: db2-pv-claim

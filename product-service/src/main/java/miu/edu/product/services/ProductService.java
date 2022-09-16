@@ -1,6 +1,7 @@
 package miu.edu.product.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import miu.edu.product.models.Product;
 import miu.edu.product.repositories.ProductRepository;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductService {
 
     private final ProductRepository repository;
@@ -73,6 +75,7 @@ public class ProductService {
         if (stock < product.getStock()) {
             product.setStock(product.getStock() - stock);
             repository.save(product);
+            log.info("{}'s stock reduced by {} and it is now {}", product.getName(), stock, product.getStock());
             return Map.of("response", "stock reduced", "currentCount", product.getStock().toString());
         } else {
             return Map.of("error", "stock exceeded", "currentCount", product.getStock().toString());

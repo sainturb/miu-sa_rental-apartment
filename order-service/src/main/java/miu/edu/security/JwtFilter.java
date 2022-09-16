@@ -2,8 +2,8 @@ package miu.edu.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -13,17 +13,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtHelper jwtHelper;
 
-    private final UserDetailsService userDetailsService;
-
-    public JwtFilter(JwtHelper jwtHelper, UserDetailsService userDetailsService) {
+    public JwtFilter(JwtHelper jwtHelper) {
         this.jwtHelper = jwtHelper;
-        this.userDetailsService = userDetailsService;
     }
 
 
@@ -33,26 +33,26 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader("Authorization");
-        String email = null;
+        String username = null;
         String token = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
-            try{
-                email = jwtHelper.getUsernameFromToken(token);
-            }catch (ExpiredJwtException e){
+            try {
+                Map<String, Object> claims = jwtHelper.getClaims(token);
+                List<String> roles = (List<String>) claims.get("roles");
+                username =  (String) claims.get("username");
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    boolean isTokenValid = jwtHelper.validateToken(token);
+                    if (isTokenValid) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                                claims.get("id"), null, roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                }
+            } catch (ExpiredJwtException e) {
                 e.printStackTrace();
-            }
-        }
-
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userDetails = userDetailsService.loadUserByUsername(email);
-            boolean isTokenValid = jwtHelper.validateToken(token);
-            if (isTokenValid) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
 

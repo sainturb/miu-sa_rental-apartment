@@ -9,8 +9,8 @@ docker build -t account-service .
 #cd ../credit-service
 #docker build -t credit-service .
 #
-#cd ../order-service
-#docker build -t order-service .
+cd ../order-service
+docker build -t order-service .
 #
 #cd ../payment-service
 #docker build -t payment-service .

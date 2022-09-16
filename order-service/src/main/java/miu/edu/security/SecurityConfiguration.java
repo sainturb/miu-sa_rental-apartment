@@ -19,12 +19,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService waaUserDetailsService;
+    private final UserDetailsService userDetailsService;
     private final JwtFilter jwtFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(waaUserDetailsService);
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/uaa/**").permitAll()
-                .antMatchers("/api/**").hasAuthority("ADMIN")
+                .antMatchers("/actuator/health/**").permitAll()
+                .antMatchers("/api/**").authenticated()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -42,7 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
     }
 
     @Bean

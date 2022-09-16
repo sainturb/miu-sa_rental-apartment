@@ -10,18 +10,19 @@ import java.util.Map;
 public class JwtHelper {
     private final String secret = "top-secret";
     private final long expiration = 15 * 60 * 60 * 100;
-    public String generateToken(String email) {
+    public String generateToken(String username, Map<String, Object> claims ) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(username)
                 .setIssuedAt(new Date())
+                .setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
-    public String generateRefreshToken(String email) {
+    public String generateRefreshToken(String username) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 60))
                 .signWith(SignatureAlgorithm.HS512, secret)
@@ -50,7 +51,6 @@ public class JwtHelper {
     }
 
     public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
-
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
@@ -65,6 +65,22 @@ public class JwtHelper {
                     .parseClaimsJws(token)
                     .getBody()
                     .getSubject();
+        } catch (ExpiredJwtException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+    public Map<String, Object> getClaims(String token) {
+        Map<String, Object> result = null;
+        try {
+            result = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
         } catch (ExpiredJwtException e) {
             System.out.println(e.getMessage());
             throw e;

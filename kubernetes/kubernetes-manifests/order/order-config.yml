@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-config
+  labels:
+    app: order-service
+data:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://order-database:5432/postgres
+  PRODUCT_SERVICE: http://product-service:8084
+  PAYMENT_SERVICE: http://payment-service:8085
