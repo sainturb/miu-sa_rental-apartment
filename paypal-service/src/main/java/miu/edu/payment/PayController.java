@@ -14,9 +14,8 @@ public class PayController {
     @PostMapping
     public void pay(@RequestBody PaymentRequestDTO body,
                                    @RequestHeader("Authorization") String bearerToken) {
-        if (Objects.nonNull(body.getMethodInfo().getBankName())
-                && Objects.nonNull(body.getMethodInfo().getBankAccount())
-                && Objects.nonNull(body.getMethodInfo().getRoutingNumber())) {
+        if (Objects.nonNull(body.getMethodInfo().getAccountToken())
+                && Objects.nonNull(body.getMethodInfo().getAccountNumber())) {
             rest.orderStatus(bearerToken, body.getOrderNumber(), "failed", "Missing information on Paypal transaction");
         } else {
             rest.orderStatus(bearerToken, body.getOrderNumber(), "paid", "Paid using Paypal method");
