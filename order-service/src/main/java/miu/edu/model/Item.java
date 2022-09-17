@@ -3,20 +3,18 @@ package miu.edu.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Data
-public class Address {
+@Table(name="items")
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String address;
-    private String address1;
-    private String state;
-    private String street;
-    private String zipcode;
-
-    @OneToOne
-    private User user;
+    private Long productId;
+    private Double price;
+    private Integer quantity;
+    private Double total;
 }

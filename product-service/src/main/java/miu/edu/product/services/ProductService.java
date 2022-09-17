@@ -66,19 +66,12 @@ public class ProductService {
     static Specification<Product> lessThan(double value) {
         return (product, cq, cb) -> cb.greaterThan(product.get("price"), value);
     }
-    public Map<String, String> reduceStocks(Long id, Integer stock) {
+    public void reduceStocks(Long id, Integer stock) {
         Optional<Product> productOptional = repository.findById(id);
-        if (productOptional.isEmpty()) {
-            return Map.of("error", "not found");
-        }
-        Product product = productOptional.get();
-        if (stock < product.getStock()) {
+        productOptional.ifPresent(product -> {
             product.setStock(product.getStock() - stock);
             repository.save(product);
             log.info("{}'s stock reduced by {} and it is now {}", product.getName(), stock, product.getStock());
-            return Map.of("response", "stock reduced", "currentCount", product.getStock().toString());
-        } else {
-            return Map.of("error", "stock exceeded", "currentCount", product.getStock().toString());
-        }
+        });
     }
 }

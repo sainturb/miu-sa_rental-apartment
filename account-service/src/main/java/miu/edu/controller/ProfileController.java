@@ -18,7 +18,6 @@ public class ProfileController {
     private final UserServiceImpl service;
     @PutMapping("/payment-method")
     public void update(Principal principal, @RequestBody UserDTO user) {
-        Long id = null;
-        service.updatePaymentMethod(id, user.getPreferredPayment());
+        service.updatePaymentMethod(Long.valueOf(principal.getName()), user.getPreferredPayment());
     }
 }

@@ -1,41 +1,45 @@
 package miu.edu.service;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import miu.edu.config.OrderProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import miu.edu.model.Order;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-//@EnableConfigurationProperties(OrderProperties.class)
 public class RestService {
 
     private final OrderProperties properties;
 
     private final RestTemplate restTemplate;
 
-    public Map productReduceStock(String bearerToken, Long id, Integer count) {
-        URI uri = URI.create(properties.getProductService() + "/api/products/" + id +"/reduce-stocks/" + count);
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers(bearerToken));
-        return restTemplate.postForObject(uri, request, Map.class);
+    public void reduceStock(String bearerToken, Order order) {
+        order.getItems().forEach(item -> {
+            URI uri = URI.create(properties.getPaymentService() + "/api/" + item.getProductId() + "/reduce-stocks/" + item.getQuantity());
+            HttpEntity<Object> request = new HttpEntity<>(headers(bearerToken));
+            restTemplate.put(uri, request);
+        });
     }
 
-    public Map paymentInitialize(String bearerToken) {
-        URI uri = URI.create(properties.getPaymentService() + "/api/products");
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers(bearerToken));
-        return restTemplate.postForObject(uri, request, Map.class);
+    public void paymentInitialize(String bearerToken, Map<String, Object> paymentInfo, Map<String, Object> address, Order order) {
+        URI uri = URI.create(properties.getPaymentService() + "/api/pay");
+        Map<String, Object> map = new HashMap<>();
+        if (Objects.nonNull(paymentInfo)) {
+            map.put("methodInfo", paymentInfo);
+        }
+        if (Objects.nonNull(address)) {
+            map.put("address", address);
+        }
+        map.put("orderNumber", order.getOrderNumber());
+        map.put("totalAmount", order.getTotalAmount());
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(map, headers(bearerToken));
+        restTemplate.put(uri, request);
     }
 
     private HttpHeaders headers(String bearerToken) {

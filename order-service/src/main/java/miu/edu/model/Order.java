@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,7 +15,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Column(unique = true)
     private String orderNumber;
     private Instant orderDate;
     private String status;
+    private Double totalAmount;
+    @OneToMany
+    @JoinColumn(name = "id_order")
+    private List<Item> items;
 }

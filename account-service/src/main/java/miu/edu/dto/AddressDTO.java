@@ -1,22 +1,17 @@
-package miu.edu.model;
+package miu.edu.dto;
 
 import lombok.Data;
+import miu.edu.model.User;
 
 import javax.persistence.*;
 
-@Entity
 @Data
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+public class AddressDTO {
     private Long id;
     private String address;
     private String address1;
     private String state;
     private String street;
     private String zipcode;
-
-    @OneToOne
-    private User user;
+    private UserDTO user;
 }

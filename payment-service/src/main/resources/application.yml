@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: payment-service
@@ -7,3 +6,6 @@ server:
   port: 8085
   error:
     include-message: always
+
+order:
+  account-service: ${ACCOUNT_SERVICE:http://localhost:8081}

@@ -6,13 +6,12 @@ import miu.edu.dto.PlaceOrderDTO;
 import miu.edu.model.Order;
 import miu.edu.service.OrderService;
 import miu.edu.service.RestService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +21,6 @@ import java.util.UUID;
 @Slf4j
 public class OrderController {
     private final OrderService service;
-
     private final RestService rest;
 
     @GetMapping
@@ -31,24 +29,20 @@ public class OrderController {
     }
 
     @PostMapping("place-order")
-    public Map<String, String> placeOrder(@RequestBody PlaceOrderDTO orderDTO, @RequestHeader("Authorization") String bearerToken) {
-        // talk to payment
-//        Map<String, String> paymentProduct = (Map<String, String>) rest.paymentInitialize(bearerToken);
-//        if (Objects.nonNull(paymentProduct.get("response"))) {
-//
-//        }
+    public Map<String, String> placeOrder(@Validated @RequestBody PlaceOrderDTO placeOrder, @RequestHeader("Authorization") String bearerToken) {
+        rest.paymentInitialize(bearerToken, placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder));
+        return Map.of("response", "Request went through");
+    }
 
-        orderDTO.getItems().forEach(item -> {
-            // talk to product
-            Map responseProduct = rest.productReduceStock(bearerToken, Long.valueOf(item.get("productId").toString()), Integer.valueOf(item.get("quantity").toString()));
-            log.info(responseProduct.toString());
+    @PutMapping("update-status/{orderNumber}/{status}")
+    public void updateStatus(@PathVariable UUID orderNumber, @PathVariable String status, @RequestHeader("Authorization") String bearerToken) {
+        Optional<Order> optional = service.getByOrderNumber(orderNumber);
+        optional.ifPresent(order -> {
+            order.setStatus(status);
+            order = service.save(order);
+            if (status.equals("paid")) {
+                rest.reduceStock(bearerToken, order);
+            }
         });
-        Order orderDetail = new Order();
-        orderDetail.setOrderDate(Instant.now());
-        orderDetail.setOrderNumber(UUID.randomUUID().toString());
-        orderDetail.setStatus("completed");
-        service.save(orderDetail);
-        return Map.of("response", "successfully ordered");
-//        return Map.of("error", "failed somewhere");
     }
 }

@@ -25,4 +25,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Role> roles;
+
+    @OneToOne(mappedBy = "user")
+    private Address address;
 }

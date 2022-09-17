@@ -38,9 +38,9 @@ public class ProductController {
         return service.save(product);
     }
 
-    @PostMapping("{id}/reduce-stocks/{count}")
-    public Map<String, String> reduceStocks(@PathVariable Long id, @PathVariable Integer count) {
-        return service.reduceStocks(id, count);
+    @PutMapping("{id}/reduce-stocks/{count}")
+    public void reduceStocks(@PathVariable Long id, @PathVariable Integer count) {
+        service.reduceStocks(id, count);
     }
 
     @DeleteMapping("{id}")

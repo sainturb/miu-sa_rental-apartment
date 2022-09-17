@@ -27,7 +27,7 @@ public class PaymentController {
     public Map<String, String> checkout(@RequestBody Map<String, Object> body, Principal principal) {
         try {
             Map<String, Object> map = mapper.readValue(principal.getName(), new TypeReference<HashMap<String,Object>>(){});
-            if (Objects.nonNull(map.get("payment"))) {
+            if (Objects.nonNull(map.get("paymentInfo"))) {
 
             } else {
                 return Map.of("error", "payment method is not set");

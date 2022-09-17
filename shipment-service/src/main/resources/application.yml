@@ -27,3 +27,7 @@ server:
   port: 8082
   error:
     include-message: always
+
+order:
+  account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
+  product-service: ${PRODUCT_SERVICE:http://localhost:8084}
