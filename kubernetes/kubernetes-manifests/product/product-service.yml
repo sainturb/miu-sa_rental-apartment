@@ -6,11 +6,12 @@ metadata:
     app: product-service # Labels and Selectors
     version: v1
 spec:
-  type: ClusterIP # Sets service type
+  type: NodePort # Sets service type
   ports:
     - name: http
       protocol: TCP
       port: 8084
       targetPort: 8084
+      nodePort: 30082
   selector:
     app: product-service
