@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -38,7 +39,7 @@ public class User {
                 "fullname", this.firstname + " " + this.lastname,
                 "username", this.username,
                 "email", this.email,
-                "roles", this.roles
+                "roles", this.roles.stream().map(Role::getRole).collect(Collectors.toList())
         );
     }
 

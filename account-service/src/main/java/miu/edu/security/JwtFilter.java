@@ -52,13 +52,13 @@ public class JwtFilter extends OncePerRequestFilter {
                                 claims.get("id"), null, roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         SecurityContextHolder.getContext().setAuthentication(authentication);
+
                     }
                 }
             } catch (ExpiredJwtException e) {
                 e.printStackTrace();
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

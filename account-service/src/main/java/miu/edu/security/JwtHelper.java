@@ -10,21 +10,23 @@ import java.util.Map;
 public class JwtHelper {
     private final String secret = "top-secret";
     private final long expiration = 15 * 60 * 60 * 100;
-    public String generateToken(String username, Map<String, Object> claims ) {
+    public String generateToken(String username, Map<String, Object> claims) {
+        var expirationDate = new Date(System.currentTimeMillis() + expiration);
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
+                .setExpiration(expirationDate)
                 .setClaims(claims)
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
     public String generateRefreshToken(String username) {
+        var expirationDate = new Date(System.currentTimeMillis() + expiration * 60);
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration * 60))
+                .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

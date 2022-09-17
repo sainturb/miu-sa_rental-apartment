@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ShipmentController {
 
     private final RestService restService;
-    @PostMapping("ship/{orderNumber")
+    @PostMapping("ship/{orderNumber}")
     public void ship(@PathVariable String orderNumber, @RequestBody AddressDTO address, @RequestHeader("Authorization") String bearerToken, Principal principal) {
         if (Objects.isNull(address)) {
             Optional<AddressDTO> optional = restService.getShippingAddress(bearerToken);
