@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paypal-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: paypal-service
+  template:
+    metadata:
+      labels:
+        app: paypal-service
+        version: v1
+    spec:
+      containers:
+        - name: paypal-service
+          image: paypal-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8088
+          envFrom:
+            - configMapRef:
+                name: paypal-config
+          securityContext:
+            runAsUser: 1000

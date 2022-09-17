@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: shipment-service
+
 server:
   port: 8082
   error:

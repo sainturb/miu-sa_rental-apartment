@@ -9,5 +9,4 @@ public class AddressDTO {
     private String address1;
     private String state;
     private String zipcode;
-    private UserDTO user;
 }

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: paypal-service # Sets service name
+  labels:
+    app: paypal-service # Labels and Selectors
+    version: v1
+spec:
+  type: ClusterIP # Sets service type
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8088
+      targetPort: 8088
+  selector:
+    app: paypal-service

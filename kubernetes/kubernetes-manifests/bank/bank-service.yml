@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bank-service # Sets service name
+  labels:
+    app: bank-service # Labels and Selectors
+    version: v1
+spec:
+  type: ClusterIP # Sets service type
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8087
+      targetPort: 8087
+  selector:
+    app: bank-service

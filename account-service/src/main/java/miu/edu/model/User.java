@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -30,4 +31,15 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Address address;
+
+    public Map<String, Object> toMap() {
+        return Map.of(
+                "id", this.id,
+                "fullname", this.firstname + " " + this.lastname,
+                "username", this.username,
+                "email", this.email,
+                "roles", this.roles
+        );
+    }
+
 }

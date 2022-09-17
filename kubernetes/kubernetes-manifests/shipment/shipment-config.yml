@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shipment-config
+  labels:
+    app: shipment-service
+data:
+  ACCOUNT_SERVICE: http://account-service:8081
+  ORDER_SERVICE: http://order-service:8083

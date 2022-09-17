@@ -1,0 +1,12 @@
+spring:
+    application:
+        name: paypal-service
+
+server:
+    port: 8088
+    error:
+        include-message: always
+
+custom:
+    account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
+    order-service: ${ORDER_SERVICE:http://localhost:8081}

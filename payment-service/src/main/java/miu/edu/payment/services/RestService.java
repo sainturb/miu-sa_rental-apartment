@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +32,9 @@ public class RestService {
     public void failedPayment(String bearerToken, String orderNumber, String reason) {
         URI uri = URI.create(properties.getAccountService() + "/api/update-status/" + orderNumber + "/failed");
         Map<String, Object> body = new HashMap<>();
-        body.put("reason", reason);
+        if (Objects.nonNull(reason)) {
+            body.put("reason", reason);
+        }
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers(bearerToken));
         restTemplate.put(uri.toString(), request);
     }
