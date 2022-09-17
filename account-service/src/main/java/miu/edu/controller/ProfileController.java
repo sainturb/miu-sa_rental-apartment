@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("api/profile")
+@RequestMapping("api")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ProfileController {
