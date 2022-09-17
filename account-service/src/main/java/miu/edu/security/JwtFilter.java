@@ -49,7 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     boolean isTokenValid = jwtHelper.validateToken(token);
                     if (isTokenValid) {
                         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                                claims, null, roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                                claims.get("id"), null, roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     }

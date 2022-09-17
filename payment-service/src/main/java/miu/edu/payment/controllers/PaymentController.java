@@ -4,37 +4,36 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import miu.edu.payment.dto.PaymentMethodDTO;
+import miu.edu.payment.dto.PaymentRequestDTO;
+import miu.edu.payment.services.RestService;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/checkout")
 @Slf4j
 @RequiredArgsConstructor
 public class PaymentController {
-
-    private final ObjectMapper mapper;
+    private final RestService rest;
 
     @PostMapping
-    public Map<String, String> checkout(@RequestBody Map<String, Object> body, Principal principal) {
-        try {
-            Map<String, Object> map = mapper.readValue(principal.getName(), new TypeReference<HashMap<String,Object>>(){});
-            if (Objects.nonNull(map.get("paymentInfo"))) {
-
-            } else {
-                return Map.of("error", "payment method is not set");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void checkout(@RequestBody PaymentRequestDTO body,
+                         @RequestHeader("Authorization") String bearerToken) {
+        Optional<PaymentMethodDTO> optional = Optional.of(body.getMethodInfo());
+        if (Objects.isNull(body.getMethodInfo())) {
+            optional = rest.getPaymentMethod(bearerToken);
         }
-        return Map.of("response", "checkout completed");
+        optional.ifPresentOrElse(method -> {
+            rest.decidePayment(bearerToken, method.getType(), body);
+        }, () -> {
+            rest.failedPayment(bearerToken, body.getOrderNumber(),"Payment method required");
+        });
     }
 }

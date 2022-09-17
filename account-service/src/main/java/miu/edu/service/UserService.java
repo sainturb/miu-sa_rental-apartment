@@ -1,15 +1,20 @@
 package miu.edu.service;
 
-import miu.edu.dto.UserDTO;
+import miu.edu.model.Address;
+import miu.edu.model.Payment;
+import miu.edu.model.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    List<UserDTO> getAll();
-    Optional<UserDTO> getById(Long id);
-    Optional<UserDTO> getByUsername(String username);
-    UserDTO save(UserDTO user);
+    List<User> getAll();
+    Optional<User> getById(Long id);
+    Optional<User> getByUsername(String username);
+    User save(User user);
     void delete(Long id);
-    void updatePaymentMethod(Long id, String method);
+    void updatePaymentMethod(Long id, Payment method);
+    void updateAddress(Long id, Address address);
+    Payment getMethod(Long userId);
+    Address getAddress(Long userId);
 }

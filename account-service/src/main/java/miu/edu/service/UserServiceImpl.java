@@ -1,44 +1,44 @@
 package miu.edu.service;
 
 import lombok.RequiredArgsConstructor;
-import miu.edu.dto.UserDTO;
+import miu.edu.model.Address;
+import miu.edu.model.Payment;
 import miu.edu.model.User;
+import miu.edu.repository.AddressRepository;
+import miu.edu.repository.PaymentRepository;
 import miu.edu.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
+    private final AddressRepository addressRepository;
+    private final PaymentRepository paymentRepository;
     private final ModelMapper mapper;
     @Override
-    public List<UserDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(u -> mapper.map(u, UserDTO.class))
-                .collect(Collectors.toList());
+    public List<User> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public Optional<UserDTO> getById(Long id) {
-        return repository.findById(id)
-                .map(u -> mapper.map(u, UserDTO.class));
+    public Optional<User> getById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
-    public Optional<UserDTO> getByUsername(String username) {
-        return repository.findByUsername(username)
-                .map(u -> mapper.map(u, UserDTO.class));
+    public Optional<User> getByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     @Override
-    public UserDTO save(UserDTO user) {
-        return mapper.map(repository.save(mapper.map(user, User.class)), UserDTO.class);
+    public User save(User user) {
+        return repository.save(user);
     }
 
     @Override
@@ -47,11 +47,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatePaymentMethod(Long id, String method) {
-        if (method.equals("credit")||method.equals("bank")||method.equals("paypal")) {
-            repository.findById(id).ifPresent(user -> {
-                user.setPreferredPayment(method);
-            });
-        }
+    public void updatePaymentMethod(Long id, Payment method) {
+        Optional<User> optional = getById(id);
+        optional.ifPresent(user -> {
+            if (Objects.nonNull(user.getPaymentMethod())) {
+                paymentRepository.delete(user.getPaymentMethod());
+            }
+            paymentRepository.save(method);
+        });
+    }
+
+    @Override
+    public void updateAddress(Long id, Address address) {
+        Optional<User> optional = getById(id);
+        optional.ifPresent(user -> {
+            if (Objects.nonNull(user.getAddress())) {
+                addressRepository.delete(user.getAddress());
+            }
+            addressRepository.save(address);
+        });
+    }
+
+    @Override
+    public Payment getMethod(Long userId) {
+        Optional<User> optional = getById(userId);
+        return optional.map(User::getPaymentMethod).orElse(null);
+    }
+
+    @Override
+    public Address getAddress(Long userId) {
+        Optional<User> optional = getById(userId);
+        return optional.map(User::getAddress).orElse(null);
     }
 }

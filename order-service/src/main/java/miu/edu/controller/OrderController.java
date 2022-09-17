@@ -41,9 +41,12 @@ public class OrderController {
     }
 
     @PutMapping("update-status/{orderNumber}/{status}")
-    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestHeader("Authorization") String bearerToken) {
+    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, String> body, @RequestHeader("Authorization") String bearerToken) {
         Optional<Order> optional = service.getByOrderNumber(orderNumber);
         optional.ifPresent(order -> {
+            if (status.equals("failed")) {
+                order.setReason(body.get("reason"));
+            }
             order.setStatus(status);
             order = service.save(order);
             if (status.equals("paid")) {

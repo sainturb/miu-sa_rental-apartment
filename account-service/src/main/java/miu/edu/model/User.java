@@ -20,7 +20,9 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private String preferredPayment; // credit,paypal,bank
+
+    @OneToOne(mappedBy = "user")
+    private Payment paymentMethod;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable

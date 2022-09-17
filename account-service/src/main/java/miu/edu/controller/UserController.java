@@ -1,11 +1,10 @@
 package miu.edu.controller;
 
 import lombok.RequiredArgsConstructor;
-import miu.edu.dto.UserDTO;
+import miu.edu.model.User;
 import miu.edu.service.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,23 +17,23 @@ public class UserController {
     private final UserServiceImpl service;
 
     @GetMapping
-    public List<UserDTO> getAll() {
+    public List<User> getAll() {
         return service.getAll();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<User> getById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping
-    public UserDTO save(@RequestBody UserDTO user) {
+    public User save(@RequestBody User user) {
         return service.save(user);
     }
 
     @PutMapping("{id}")
-    public UserDTO update(@PathVariable Long id, @RequestBody UserDTO user) {
+    public User update(@PathVariable Long id, @RequestBody User user) {
         user.setId(id);
         return service.save(user);
     }

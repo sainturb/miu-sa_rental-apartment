@@ -9,3 +9,6 @@ server:
 
 order:
   account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
+  credit-service: ${CREDIT_SERVICE:http://localhost:8085}
+  paypal-service: ${PAYPAL_SERVICE:http://localhost:8085}
+  bank-service: ${BANK_SERVICE:http://localhost:8085}

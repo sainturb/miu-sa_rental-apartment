@@ -21,6 +21,7 @@ public class Order {
     private String status;
     private Double totalAmount;
     private Long userId;
+    private String reason;
     @OneToMany
     @JoinColumn(name = "id_order")
     private List<Item> items;
