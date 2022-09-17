@@ -20,6 +20,7 @@ public class Order {
     private Instant orderDate;
     private String status;
     private Double totalAmount;
+    private Long userId;
     @OneToMany
     @JoinColumn(name = "id_order")
     private List<Item> items;

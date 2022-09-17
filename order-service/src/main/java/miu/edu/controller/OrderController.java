@@ -9,6 +9,7 @@ import miu.edu.service.RestService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,19 +24,24 @@ public class OrderController {
     private final OrderService service;
     private final RestService rest;
 
-    @GetMapping
-    public List<Order> getAll() {
-        return service.getAll();
+    @GetMapping("my")
+    public List<Order> getAll(Principal principal) {
+        return service.getByUserId(Long.valueOf(principal.getName()));
+    }
+
+    @GetMapping("my/{orderNumber}")
+    public Optional<Order> getAll(@PathVariable String orderNumber, Principal principal) {
+        return service.getByOrderNumberAndUserId(orderNumber, Long.valueOf(principal.getName()));
     }
 
     @PostMapping("place-order")
-    public Map<String, String> placeOrder(@Validated @RequestBody PlaceOrderDTO placeOrder, @RequestHeader("Authorization") String bearerToken) {
-        rest.paymentInitialize(bearerToken, placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder));
+    public Map<String, String> placeOrder(@Validated @RequestBody PlaceOrderDTO placeOrder, @RequestHeader("Authorization") String bearerToken, Principal principal) {
+        rest.paymentInitialize(bearerToken, placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder, principal));
         return Map.of("response", "Request went through");
     }
 
     @PutMapping("update-status/{orderNumber}/{status}")
-    public void updateStatus(@PathVariable UUID orderNumber, @PathVariable String status, @RequestHeader("Authorization") String bearerToken) {
+    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestHeader("Authorization") String bearerToken) {
         Optional<Order> optional = service.getByOrderNumber(orderNumber);
         optional.ifPresent(order -> {
             order.setStatus(status);

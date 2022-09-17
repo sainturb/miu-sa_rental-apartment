@@ -7,8 +7,8 @@ import miu.edu.model.Order;
 import miu.edu.repository.ItemRepository;
 import miu.edu.repository.OrderRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class OrderService {
     private final OrderRepository repository;
     private final ItemRepository itemRepository;
+
     public List<Order> getAll() {
         return repository.findAll();
     }
@@ -29,8 +30,16 @@ public class OrderService {
         return repository.findById(id);
     }
 
-    public Optional<Order> getByOrderNumber(UUID orderNumber) {
+    public List<Order> getByUserId(Long userId) {
+        return repository.findByUserId(userId);
+    }
+
+    public Optional<Order> getByOrderNumber(String orderNumber) {
         return repository.findByOrderNumber(orderNumber);
+    }
+
+    public Optional<Order> getByOrderNumberAndUserId(String orderNumber, Long userId) {
+        return repository.findByOrderNumberAndUserId(orderNumber, userId);
     }
 
     public Order save(Order order) {
@@ -41,7 +50,7 @@ public class OrderService {
         repository.deleteById(id);
     }
 
-    public Order placeOrder(PlaceOrderDTO placeOrder) {
+    public Order placeOrder(PlaceOrderDTO placeOrder, Principal principal) {
         List<Item> items = new ArrayList<>();
         AtomicReference<Double> totalAmount = new AtomicReference<>((double) 0L);
         placeOrder.getItems().forEach(rawItem -> {
@@ -59,6 +68,7 @@ public class OrderService {
         order.setStatus("ordered");
         order.setItems(items);
         order.setTotalAmount(totalAmount.get());
+        order.setUserId(Long.valueOf(principal.getName()));
         return save(order);
     }
 }
