@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -50,10 +49,12 @@ public class UserServiceImpl implements UserService {
     public void updatePaymentMethod(Long id, Payment method) {
         Optional<User> optional = getById(id);
         optional.ifPresent(user -> {
-            if (Objects.nonNull(user.getPaymentMethod())) {
-                paymentRepository.delete(user.getPaymentMethod());
-            }
-            paymentRepository.save(method);
+//            if (Objects.nonNull(user.getPaymentMethod())) {
+//                paymentRepository.deleteById(user.getPaymentMethod().getId());
+//            }
+            var saved = paymentRepository.save(method);
+            user.setPaymentMethod(saved);
+            save(user);
         });
     }
 
@@ -61,10 +62,12 @@ public class UserServiceImpl implements UserService {
     public void updateAddress(Long id, Address address) {
         Optional<User> optional = getById(id);
         optional.ifPresent(user -> {
-            if (Objects.nonNull(user.getAddress())) {
-                addressRepository.delete(user.getAddress());
-            }
-            addressRepository.save(address);
+//            if (Objects.nonNull(user.getAddress())) {
+//                addressRepository.deleteById(user.getAddress().getId());
+//            }
+            var saved = addressRepository.save(address);
+            user.setAddress(saved);
+            save(user);
         });
     }
 

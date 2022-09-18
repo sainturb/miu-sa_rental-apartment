@@ -1,28 +1,26 @@
 package miu.edu.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @NonNull
+
+    @NotNull
     private String address;
-    private String address1;
-    @NonNull
+    @NotNull
     private String state;
-    @NonNull
-    private String street;
-    @NonNull
+    @NotNull
     private String zipcode;
-    @OneToOne
-    private User user;
 }

@@ -1,8 +1,11 @@
 package miu.edu.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,28 +13,33 @@ import java.util.stream.Collectors;
 @Entity
 @Data
 @Table(name = "users")
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @NotNull
     private String firstname;
+    @NotNull
     private String lastname;
     @Column(unique = true)
     private String username;
     @Column(unique = true)
     private String email;
+    @NotNull
     private String password;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    private Address address;
+
+    @OneToOne
     private Payment paymentMethod;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Role> roles;
-
-    @OneToOne(mappedBy = "user")
-    private Address address;
 
     public Map<String, Object> toMap() {
         return Map.of(
@@ -42,5 +50,4 @@ public class User {
                 "roles", this.roles.stream().map(Role::getRole).collect(Collectors.toList())
         );
     }
-
 }

@@ -1,21 +1,23 @@
 package miu.edu.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NonNull
+    @NotNull
     private String type;
     // for card
     private String cardNumber;
@@ -28,9 +30,5 @@ public class Payment {
     // for paypal
     private String accountNumber;
     private String accountToken;
-
-    @OneToOne
-    private User user;
-
 }
 
