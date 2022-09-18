@@ -6,3 +6,4 @@ metadata:
     app: product-service
 data:
   SPRING_DATASOURCE_URL: jdbc:postgresql://product-database:5432/postgres
+  SHORTAGE_AMOUNT: '50'

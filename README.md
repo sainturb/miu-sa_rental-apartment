@@ -67,6 +67,7 @@
 🛡 /api/products [CRUD] query parameters will filter products
 🌐 /api/search [GET] query parameters {name, description, category, price.lessThan, price.greaterThan}
 🔒 /api/products/{id}/reduce-stocks/{count} [PUT] reduce stock when user orders products (only internal service will access to this)
+🔒 /api/products/{id}/availablility/{count} [GET] reduce stock when user orders products (only internal service will access to this)
 ```
 ### Payment service : 8085
 

@@ -34,4 +34,4 @@ server:
     include-message: always
 
 custom:
-  shortage-amount: 50
+  shortage-amount: ${SHORTAGE_AMOUNT:50}
