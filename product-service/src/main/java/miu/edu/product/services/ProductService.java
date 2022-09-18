@@ -85,7 +85,7 @@ public class ProductService {
             if (optional.get().getStock() < properties.getShortageAmount()) {
                 log.info("There is shortage in product {}, current stock is {}", optional.get().getName(), optional.get().getStock());
             }
-            return Map.of("available", optional.get().getStock() > count, "current", optional.get().getStock());
+            return Map.of("available", optional.get().getStock() >= count, "current", optional.get().getStock());
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
     }

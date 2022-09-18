@@ -3,10 +3,18 @@ package miu.edu.product.controllers;
 import lombok.RequiredArgsConstructor;
 import miu.edu.product.models.Product;
 import miu.edu.product.services.ProductService;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +24,19 @@ import java.util.Map;
 public class ProductController {
     private final ProductService service;
 
+    private final JobLauncher launcher;
+
+    private final Job importData;
+
     @GetMapping
     public List<Product> getAll() {
         return service.getAll();
+    }
+
+    @PutMapping("/batch")
+    public ResponseEntity<Map<String, String>> batch(@PathVariable Long id) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+        launcher.run(importData, new JobParameters(new HashMap<>()));
+        return ResponseEntity.ok(Map.of("response", "batch completed successfully"));
     }
 
     @GetMapping("{id}")

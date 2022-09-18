@@ -50,12 +50,12 @@ public class BatchConfiguration {
     public JdbcBatchItemWriter<ProductDTO> writer() {
         return new JdbcBatchItemWriterBuilder<ProductDTO>()
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("INSERT INTO product (category, name, description, stock, price) VALUES (:category, :name, :description, :stock, :price)")
+                .sql("INSERT INTO product (id, category, name, description, stock, price) VALUES (:id, :category, :name, :description, :stock, :price) ON CONFLICT DO NOTHING")
                 .dataSource(dataSource)
                 .build();
     }
 
-    @Bean
+    @Bean(name="importData")
     public Job importDataJob(JobCompletionNotificationListener listener, Step step1) {
         return jobBuilderFactory.get("importDataJob")
                 .incrementer(new RunIdIncrementer())
