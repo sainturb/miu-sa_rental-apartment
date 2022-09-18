@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/address")
+@RequestMapping("api")
 @RequiredArgsConstructor
 @Slf4j
 public class ShipmentController {

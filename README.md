@@ -8,6 +8,8 @@
 
 🌐 - Public API
 
+🔒 - Internal API (service to service protection)
+
 # Structure
 
 ![alt text](assignment.drawio.png)
@@ -21,11 +23,15 @@
 
 #### APIs
 ```
-🌐 /api/uaa/authenticate [POST] {username: String, password: String}
+🌐 /api/uaa/authenticate [POST] {username, password}
+🌐 /api/uaa/register [POST] {username, email, firstname, lastname, password}
 🛡 /api/uaa/logout [DELETE]
 🛡 /api/uaa/check [GET]
 🛡 /api/users [CRUD] (only user with role ADMIN can access)
-🛡 /api/profile/payment-method [PUT] body: {preferredMethod: String}
+🛡 /api/payment-method [POST] create or update payment mehtod
+🛡 /api/shipping-address [POST] create or update shipping address
+🛡 /api/payment-method [GET] get user's payment mehtod
+🛡 /api/shipping-address [GET] get user's shipping address
 ```
 
 ### Shipment service : 8082
@@ -38,16 +44,20 @@
     userId is store in the token
 #### APIs
 ```
-🌐 /api/address/ship [POST] body: empty
-🛡 /api/address/shipping [POST] body: Address
-🛡 /api/address/shipping/{id} [PUT] body: Address
+🔒 /api/ship/{orderNumber} [POST] body: address
 ```
 ### Order service : 8083
     
     Order service responsible for storing a cart items,
     Order service will make sure stock exceeding issue,
     This service also connects to shipment service to ship items to user's home
-
+#### APIs
+```
+🛡 /api/orders/my [GET] user see their own orders
+🛡 /api/orders/my{orderNumber} [GET] user see their own order by order number
+🛡 /api/orders/place-order [POST] to place order
+🔒 /api/orders/update-status/{orderNumber}/{status} [PUT] change status (only internal service will access to this)
+```
 ### Product service : 8084
     
     Product service stores all the product information.
@@ -56,7 +66,7 @@
 ```
 🛡 /api/products [CRUD] query parameters will filter products
 🌐 /api/search [GET] query parameters {name, description, category, price.lessThan, price.greaterThan}
-🌐 /api/products/{id}/reduce-stocks/{count} [PUT] reduce stock when user orders products
+🔒 /api/products/{id}/reduce-stocks/{count} [PUT] reduce stock when user orders products (only internal service will access to this)
 ```
 ### Payment service : 8085
 
@@ -66,20 +76,20 @@
     (We will store it inside the token)
 #### APIs
 ```
-🛡 /api/checkout [POST]
+🔒 /api/checkout [POST]
 ```
 ### Credit service : 8086
 #### APIs
 ```
-🌐 /api/pay [POST]
+🔒 /api/pay [POST] cardNumber, cardExpires, cardSecurityCode required
 ```
 ### Bank service : 8087
 #### APIs
 ```
-🌐 /api/pay [POST]
+🔒 /api/pay [POST] bankName, bankAccount, routingNumber required
 ```
 ### Paypal service : 8088
 #### APIs
 ```
-🌐 /api/pay [POST]
+🔒 /api/pay [POST] accountNumber, accountToken required
 ```
