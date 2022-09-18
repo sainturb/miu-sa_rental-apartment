@@ -43,6 +43,11 @@ public class ProductController {
         service.reduceStocks(id, count);
     }
 
+    @GetMapping("{id}/availability/{count}")
+    public Map<String, Object> availability(@PathVariable Long id, @PathVariable Integer count) {
+        return service.getAvailability(id, count);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);

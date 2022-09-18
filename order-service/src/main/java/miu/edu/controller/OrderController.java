@@ -2,12 +2,15 @@ package miu.edu.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import miu.edu.dto.AvailabilityDTO;
 import miu.edu.dto.PlaceOrderDTO;
 import miu.edu.model.Order;
 import miu.edu.service.OrderService;
 import miu.edu.service.RestService;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -35,7 +38,11 @@ public class OrderController {
     }
 
     @PostMapping("place-order")
-    public Map<String, String> placeOrder(@Validated @RequestBody PlaceOrderDTO placeOrder, @RequestHeader("Authorization") String bearerToken, Principal principal) {
+    public Map<String, String> placeOrder(@RequestBody PlaceOrderDTO placeOrder, @RequestHeader("Authorization") String bearerToken, Principal principal) {
+        List<AvailabilityDTO> list = rest.checkAvailable(bearerToken, placeOrder);
+        if (list.stream().anyMatch(item -> !item.isAvailable())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product stock is not available at the moment");
+        }
         rest.paymentInitialize(bearerToken, placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder, principal));
         return Map.of("response", "Request went through");
     }

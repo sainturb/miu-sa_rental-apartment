@@ -2,10 +2,13 @@ package miu.edu.product.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import miu.edu.product.config.CustomProperties;
 import miu.edu.product.models.Product;
 import miu.edu.product.repositories.ProductRepository;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository repository;
+    private final CustomProperties properties;
 
     public List<Product> getAll() {
         return repository.findAll();
@@ -73,5 +77,16 @@ public class ProductService {
             repository.save(product);
             log.info("{}'s stock reduced by {} and it is now {}", product.getName(), stock, product.getStock());
         });
+    }
+
+    public Map<String, Object> getAvailability(Long id, Integer count) {
+        Optional<Product> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            if (optional.get().getStock() < properties.getShortageAmount()) {
+                log.info("There is shortage in product {}, current stock is {}", optional.get().getName(), optional.get().getStock());
+            }
+            return Map.of("available", optional.get().getStock() > count, "current", optional.get().getStock());
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
     }
 }

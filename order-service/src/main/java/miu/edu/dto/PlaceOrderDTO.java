@@ -12,6 +12,5 @@ import java.util.Map;
 public class PlaceOrderDTO {
     private Map<String, Object> address;
     private Map<String, Object> paymentInfo;
-    @NonNull
     private List<ItemDTO> items;
 }

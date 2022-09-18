@@ -2,9 +2,10 @@ package miu.edu.service;
 
 import lombok.RequiredArgsConstructor;
 import miu.edu.config.OrderProperties;
+import miu.edu.dto.AvailabilityDTO;
+import miu.edu.dto.PlaceOrderDTO;
 import miu.edu.model.Order;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +26,19 @@ public class RestService {
             HttpEntity<Object> request = new HttpEntity<>(headers(bearerToken));
             restTemplate.put(uri, request);
         });
+    }
+
+    public List<AvailabilityDTO> checkAvailable(String bearerToken, PlaceOrderDTO order) {
+        List<AvailabilityDTO> list = new ArrayList<>();
+        order.getItems().forEach(item -> {
+            URI uri = URI.create(properties.getPaymentService() + "/api/" + item.getProductId() + "/availability/" + item.getQuantity());
+            HttpEntity<AvailabilityDTO> request = new HttpEntity<>(headers(bearerToken));
+            ResponseEntity<AvailabilityDTO> requestResponse = restTemplate.exchange(uri, HttpMethod.GET, request, AvailabilityDTO.class);
+            if (requestResponse.getStatusCode() == HttpStatus.OK) {
+                list.add(requestResponse.getBody());
+            }
+        });
+        return list;
     }
 
     public void paymentInitialize(String bearerToken, Map<String, Object> paymentInfo, Map<String, Object> address, Order order) {
