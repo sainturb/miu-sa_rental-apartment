@@ -1,7 +1,5 @@
 package miu.edu.payment.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.payment.dto.PaymentMethodDTO;
@@ -17,23 +15,26 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/checkout")
+@RequestMapping("api")
 @Slf4j
 @RequiredArgsConstructor
 public class PaymentController {
     private final RestService rest;
-
-    @PostMapping
-    public void checkout(@RequestBody PaymentRequestDTO body,
-                         @RequestHeader("Authorization") String bearerToken) {
+    @PostMapping("checkout")
+    public void checkout(@RequestBody PaymentRequestDTO body) {
         Optional<PaymentMethodDTO> optional = Optional.ofNullable(body.getMethodInfo());
         if (Objects.isNull(body.getMethodInfo())) {
-            optional = rest.getPaymentMethod(bearerToken);
+            optional = rest.getPaymentMethod();
         }
         optional.ifPresentOrElse(method -> {
-            rest.decidePayment(bearerToken, method.getType(), body);
+            rest.decidePayment(method.getType(), body);
         }, () -> {
-            rest.failedPayment(bearerToken, body.getOrderNumber(),"Payment method required");
+            rest.failedPayment(body.getOrderNumber(),"Payment method required");
         });
+    }
+
+    @GetMapping("test")
+    public void test() {
+        rest.test();
     }
 }

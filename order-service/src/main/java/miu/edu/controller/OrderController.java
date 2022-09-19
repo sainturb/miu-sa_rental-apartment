@@ -37,17 +37,17 @@ public class OrderController {
     }
 
     @PostMapping("place-order")
-    public Map<String, String> placeOrder(@RequestBody PlaceOrderDTO placeOrder, @RequestHeader("Authorization") String bearerToken, Principal principal) {
-        List<AvailabilityDTO> list = rest.checkAvailable(bearerToken, placeOrder);
+    public Map<String, String> placeOrder(@RequestBody PlaceOrderDTO placeOrder, Principal principal) {
+        List<AvailabilityDTO> list = rest.checkAvailable(placeOrder);
         if (list.stream().anyMatch(item -> !item.isAvailable())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product stock is not available at the moment");
         }
-        rest.paymentInitialize(bearerToken, placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder, principal));
+        rest.paymentInitialize(placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder, principal));
         return Map.of("response", "Request went through");
     }
 
     @PutMapping("update-status/{orderNumber}/{status}")
-    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, String> body, @RequestHeader("Authorization") String bearerToken) {
+    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, String> body) {
         Optional<Order> optional = service.getByOrderNumber(orderNumber);
         optional.ifPresent(order -> {
             if (status.equals("failed")) {
@@ -56,7 +56,7 @@ public class OrderController {
             order.setStatus(status);
             order = service.save(order);
             if (status.equals("paid")) {
-                rest.reduceStock(bearerToken, order);
+                rest.reduceStock(order);
             }
         });
     }

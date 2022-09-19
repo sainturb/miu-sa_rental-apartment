@@ -5,5 +5,5 @@ metadata:
   labels:
     app: paypal-service
 data:
-  ACCOUNT_SERVICE: http://account-service:8081
+  SHIPMENT_SERVICE: http://shipment-service:8082
   ORDER_SERVICE: http://order-service:8083

@@ -1,12 +1,19 @@
 spring:
-    application:
-        name: bank-service
+  application:
+    name: bank-service
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
 
 server:
-    port: 8087
-    error:
-        include-message: always
+  port: 8087
+  error:
+    include-message: always
 
-custom:
-    account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
-    order-service: ${ORDER_SERVICE:http://localhost:8081}
+shipment-service:
+  ribbon:
+    listOfServers: ${SHIPMENT_SERVICE:http://localhost:8082}
+order-service:
+  ribbon:
+    listOfServers: ${ORDER_SERVICE:http://localhost:8083}

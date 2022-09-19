@@ -1,12 +1,18 @@
 spring:
   application:
     name: shipment-service
-
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 server:
   port: 8082
   error:
     include-message: always
 
-custom:
-  account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
-  order-service: ${ORDER_SERVICE:http://localhost:8081}
+account-service:
+  ribbon:
+    listOfServers: ${ACCOUNT_SERVICE:http://localhost:8081}
+order-service:
+  ribbon:
+    listOfServers: ${ORDER_SERVICE:http://localhost:8083}

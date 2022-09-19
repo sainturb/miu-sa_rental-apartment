@@ -1,7 +1,7 @@
 package miu.edu.payment.services;
 
 import lombok.RequiredArgsConstructor;
-import miu.edu.payment.config.OrderProperties;
+import miu.edu.payment.client.*;
 import miu.edu.payment.dto.PaymentMethodDTO;
 import miu.edu.payment.dto.PaymentRequestDTO;
 import org.springframework.http.HttpEntity;
@@ -18,47 +18,44 @@ import java.util.*;
 @RequiredArgsConstructor
 public class RestService {
 
-    private final OrderProperties properties;
+//    private final OrderProperties properties;
 
-    private final RestTemplate restTemplate;
+//    private final RestTemplate restTemplate;
 
-    public Optional<PaymentMethodDTO> getPaymentMethod(String bearerToken) {
-        String uri = properties.getAccountService() + "/api/payment-method";
-        HttpEntity<Void> request = new HttpEntity<>(headers(bearerToken));
-        ResponseEntity<PaymentMethodDTO> response = restTemplate.exchange(uri, HttpMethod.GET, request, PaymentMethodDTO.class);
-        return Optional.ofNullable(response.getBody());
+    private final AccountClient accountClient;
+    private final PaypalClient paypalClient;
+    private final BankClient bankClient;
+    private final CreditClient creditClient;
+    private final OrderClient orderClient;
+
+    public Optional<PaymentMethodDTO> getPaymentMethod() {
+        return Optional.ofNullable(accountClient.getPaymentMethod());
     }
 
-    public void failedPayment(String bearerToken, String orderNumber, String reason) {
-        String uri = properties.getOrderService() + "/api/orders/update-status/" + orderNumber + "/failed";
+    public void failedPayment(String orderNumber, String reason) {
         Map<String, Object> body = new HashMap<>();
         if (Objects.nonNull(reason)) {
             body.put("reason", reason);
         }
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers(bearerToken));
-        restTemplate.put(uri, request);
+        orderClient.updateStatus(orderNumber, "failed", body);
     }
-    public void decidePayment(String bearerToken, String type, PaymentRequestDTO paymentRequest) {
-        String uri;
+    public void decidePayment(String type, PaymentRequestDTO paymentRequest) {
         switch (type) {
             case "paypal":
-                uri = properties.getPaypalService() + "/api/pay";
+                paypalClient.checkout(paymentRequest);
                 break;
             case "bank":
-                uri = properties.getBankService() + "/api/pay";
+                bankClient.checkout(paymentRequest);
                 break;
-            default: uri = properties.getCreditService() + "/api/pay";
+            default:
+                creditClient.checkout(paymentRequest);
                 break;
         }
-        HttpEntity<PaymentRequestDTO> request = new HttpEntity<>(paymentRequest, headers(bearerToken));
-        restTemplate.exchange(uri, HttpMethod.POST, request, PaymentRequestDTO.class);
     }
 
-
-    private HttpHeaders headers(String bearerToken) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.put("Authorization", List.of(bearerToken));
-        return headers;
+    public void test() {
+        bankClient.test();
+        creditClient.test();
+        paypalClient.test();
     }
-
 }

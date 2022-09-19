@@ -23,11 +23,21 @@ spring:
   application:
     name: order-service
 
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
+
 server:
   port: 8083
   error:
     include-message: always
-
-custom:
-  product-service: ${PRODUCT_SERVICE:http://localhost:8084}
-  payment-service: ${PAYMENT_SERVICE:http://localhost:8085}
+product-service:
+  ribbon:
+    listOfServers: ${PRODUCT_SERVICE:http://localhost:8084}
+payment-service:
+  ribbon:
+    listOfServers: ${PAYMENT_SERVICE:http://localhost:8085}
+#custom:
+#  product-service: ${PRODUCT_SERVICE:http://localhost:8084}
+#  payment-service: ${PAYMENT_SERVICE:http://localhost:8085}
