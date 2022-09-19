@@ -1,0 +1,76 @@
+### Health check of account-service
+GET http://localhost:30081/actuator/health
+
+### Health check of product-service
+GET http://localhost:30082/actuator/health
+
+### Health check of order-service
+GET http://localhost:30083/actuator/health
+
+### Authenticate as admin
+POST http://localhost:30081/api/uaa/authenticate
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+> {% client.global.set("admin_token", response.body.access_token); %}
+
+### Batch start process
+PUT http://localhost:30082/api/batch/start
+Authorization: Bearer {{admin_token}}
+
+### Authenticate
+POST http://localhost:30081/api/uaa/authenticate
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user"
+}
+
+> {% client.global.set("token", response.body.access_token); %}
+
+### Get shipping address
+GET http://localhost:30081/api/shipping-address
+Authorization: Bearer {{token}}
+
+### Get payment method
+GET http://localhost:30081/api/payment-method
+Authorization: Bearer {{token}}
+
+### Update shipping address
+POST http://localhost:30081/api/shipping-address
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "address": "407 N 6th St",
+  "state": "IA",
+  "zipcode": "52556"
+}
+
+### Update payment method
+POST http://localhost:30081/api/payment-method
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "bank",
+  "routingNumber": "1234",
+  "bankName": "Bank name",
+  "bankAccount": "123456789"
+}
+
+### Search products
+GET http://localhost:30082/api/search?name=Home&price.greaterThan=150
+
+### Place an order
+POST http://localhost:30083/api/orders/place-order
+Authorization: Bearer {{token}}
+
+### My orders
+GET http://localhost:30083/api/orders/my
+Authorization: Bearer {{token}}
