@@ -1,6 +1,5 @@
 package miu.edu.payment.service;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import miu.edu.payment.client.OrderClient;
 import miu.edu.payment.client.ShipmentClient;

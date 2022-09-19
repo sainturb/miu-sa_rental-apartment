@@ -3,7 +3,10 @@ package miu.edu.product.controllers;
 import lombok.RequiredArgsConstructor;
 import miu.edu.product.models.Product;
 import miu.edu.product.services.ProductService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

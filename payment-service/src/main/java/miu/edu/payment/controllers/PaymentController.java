@@ -7,10 +7,6 @@ import miu.edu.payment.dto.PaymentRequestDTO;
 import miu.edu.payment.services.RestService;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 

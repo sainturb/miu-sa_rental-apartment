@@ -8,7 +8,6 @@ import miu.edu.dto.AvailabilityDTO;
 import miu.edu.dto.PlaceOrderDTO;
 import miu.edu.model.Order;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 

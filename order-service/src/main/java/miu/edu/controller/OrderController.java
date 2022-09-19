@@ -8,7 +8,6 @@ import miu.edu.model.Order;
 import miu.edu.service.OrderService;
 import miu.edu.service.RestService;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,7 +15,6 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("api/orders")

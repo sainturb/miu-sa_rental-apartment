@@ -1,6 +1,6 @@
 package miu.edu.payment.dto;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class AddressDTO {

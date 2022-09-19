@@ -3,7 +3,6 @@ package miu.edu.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @Entity
 @Data
