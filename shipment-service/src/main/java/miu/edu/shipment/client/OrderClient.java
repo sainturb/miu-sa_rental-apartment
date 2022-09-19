@@ -9,6 +9,6 @@ import java.util.Map;
 
 @FeignClient(name = "order-service", url = "${order-service.ribbon.listOfServers}")
 public interface OrderClient {
-    @PutMapping("update-status/{orderNumber}/{status}")
+    @PutMapping("/api/orders/update-status/{orderNumber}/{status}")
     void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, Object> body);
 }

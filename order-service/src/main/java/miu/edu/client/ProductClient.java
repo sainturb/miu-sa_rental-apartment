@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @FeignClient(name = "product-service", url = "${product-service.ribbon.listOfServers}")
 public interface ProductClient {
-    @PutMapping("{id}/reduce-stocks/{count}")
+    @PutMapping("/api/products/{id}/reduce-stocks/{count}")
     void reduceStocks(@PathVariable Long id, @PathVariable Integer count);
 
-    @GetMapping("{id}/availability/{count}")
+    @GetMapping("/api/products/{id}/availability/{count}")
     AvailabilityDTO availability(@PathVariable Long id, @PathVariable Integer count);
 }

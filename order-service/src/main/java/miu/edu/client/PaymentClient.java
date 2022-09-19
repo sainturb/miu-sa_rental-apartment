@@ -8,6 +8,6 @@ import java.util.Map;
 
 @FeignClient(name = "payment-service", url = "${payment-service.ribbon.listOfServers}")
 public interface PaymentClient {
-    @PostMapping
+    @PostMapping("api/checkout")
     void checkout(@RequestBody Map<String, Object> body);
 }
