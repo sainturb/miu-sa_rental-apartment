@@ -95,3 +95,24 @@
 ```
 🔒 /api/pay [POST] accountNumber, accountToken required
 ```
+
+
+# How to run
+
+## Prerequisites
+
+- Java 11+
+- Maven 3.3+
+- Docker daemon
+- Kubernetes
+
+## Commands
+
+```shell
+sh build.sh
+cd kubernetes
+sh deploy.sh
+```
+
+## Extra
+If you are using Intellij IDEA, try to call rest API using api.http file. 
