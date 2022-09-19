@@ -14,11 +14,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RestService {
-
-//    private final OrderProperties properties;
-
-//    private final RestTemplate restTemplate;
-
     private final AccountClient accountClient;
     private final PaypalClient paypalClient;
     private final BankClient bankClient;
