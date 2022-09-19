@@ -16,17 +16,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PaymentController {
     private final RestService rest;
+
     @PostMapping("checkout")
     public void checkout(@RequestBody PaymentRequestDTO body) {
-        Optional<PaymentMethodDTO> optional = Optional.ofNullable(body.getMethodInfo());
         if (Objects.isNull(body.getMethodInfo())) {
-            optional = rest.getPaymentMethod();
+            body.setMethodInfo(rest.getPaymentMethod());
         }
-        optional.ifPresentOrElse(method -> {
-            rest.decidePayment(method.getType(), body);
-        }, () -> {
-            rest.failedPayment(body.getOrderNumber(),"Payment method required");
-        });
+        log.info("Payment method is {}", body);
+        Optional.ofNullable(body.getMethodInfo()).ifPresentOrElse(method -> rest.decidePayment(body),
+                () -> rest.failedPayment(body.getOrderNumber(), "Payment method required"));
     }
 
     @GetMapping("test")

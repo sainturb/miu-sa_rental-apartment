@@ -16,9 +16,9 @@ public class PayController {
     private final RestService rest;
     @PostMapping("pay")
     public void pay(@RequestBody PaymentRequestDTO body) {
-        if (Objects.nonNull(body.getMethodInfo().getCardExpires())
-                && Objects.nonNull(body.getMethodInfo().getCardNumber())
-                && Objects.nonNull(body.getMethodInfo().getCardSecurityCode())) {
+        if (Objects.isNull(body.getMethodInfo().getCardExpires())
+                || Objects.isNull(body.getMethodInfo().getCardNumber())
+                || Objects.isNull(body.getMethodInfo().getCardSecurityCode())) {
             rest.orderStatus(body.getOrderNumber(), "failed", "Missing information on credit transaction");
         } else {
             rest.orderStatus(body.getOrderNumber(), "paid", "Paid using Credit card method");

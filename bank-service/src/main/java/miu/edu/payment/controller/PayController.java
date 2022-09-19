@@ -16,9 +16,10 @@ public class PayController {
     private final RestService rest;
     @PostMapping("pay")
     public void pay(@RequestBody PaymentRequestDTO body) {
-        if (Objects.nonNull(body.getMethodInfo().getBankName())
-                && Objects.nonNull(body.getMethodInfo().getBankAccount())
-                && Objects.nonNull(body.getMethodInfo().getRoutingNumber())) {
+        log.info(body.toString());
+        if (Objects.isNull(body.getMethodInfo().getBankName())
+                || Objects.isNull(body.getMethodInfo().getBankAccount())
+                || Objects.isNull(body.getMethodInfo().getRoutingNumber())) {
             rest.orderStatus(body.getOrderNumber(), "failed", "Missing information on bank transaction");
         } else {
             rest.orderStatus(body.getOrderNumber(), "paid", "Paid using Bank method");

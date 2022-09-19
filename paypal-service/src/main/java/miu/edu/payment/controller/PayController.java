@@ -16,8 +16,8 @@ public class PayController {
     private final RestService rest;
     @PostMapping("pay")
     public void pay(@RequestBody PaymentRequestDTO body) {
-        if (Objects.nonNull(body.getMethodInfo().getAccountNumber())
-                && Objects.nonNull(body.getMethodInfo().getAccountToken())) {
+        if (Objects.isNull(body.getMethodInfo().getAccountNumber())
+                || Objects.isNull(body.getMethodInfo().getAccountToken())) {
             rest.orderStatus(body.getOrderNumber(), "failed", "Missing information on paypal transaction");
         } else {
             rest.orderStatus(body.getOrderNumber(), "paid", "Paid using Paypal method");

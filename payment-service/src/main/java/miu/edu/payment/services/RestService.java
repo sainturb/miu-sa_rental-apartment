@@ -20,8 +20,8 @@ public class RestService {
     private final CreditClient creditClient;
     private final OrderClient orderClient;
 
-    public Optional<PaymentMethodDTO> getPaymentMethod() {
-        return Optional.ofNullable(accountClient.getPaymentMethod());
+    public PaymentMethodDTO getPaymentMethod() {
+        return accountClient.getPaymentMethod();
     }
 
     public void failedPayment(String orderNumber, String reason) {
@@ -31,8 +31,8 @@ public class RestService {
         }
         orderClient.updateStatus(orderNumber, "failed", body);
     }
-    public void decidePayment(String type, PaymentRequestDTO paymentRequest) {
-        switch (type) {
+    public void decidePayment(PaymentRequestDTO paymentRequest) {
+        switch (paymentRequest.getMethodInfo().getType()) {
             case "paypal":
                 paypalClient.checkout(paymentRequest);
                 break;

@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.dto.AvailabilityDTO;
 import miu.edu.dto.PlaceOrderDTO;
+import miu.edu.model.Activity;
 import miu.edu.model.Order;
+import miu.edu.service.ActivityService;
 import miu.edu.service.OrderService;
 import miu.edu.service.RestService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,6 +25,7 @@ import java.util.Optional;
 @Slf4j
 public class OrderController {
     private final OrderService service;
+    private final ActivityService activity;
     private final RestService rest;
 
     @GetMapping("my")
@@ -30,24 +34,30 @@ public class OrderController {
     }
 
     @GetMapping("my/{orderNumber}")
-    public Optional<Order> getAll(@PathVariable String orderNumber, Principal principal) {
-        return service.getByOrderNumberAndUserId(orderNumber, Long.valueOf(principal.getName()));
+    public Order getAll(@PathVariable String orderNumber, Principal principal) {
+        return service.getByOrderNumberAndUserId(orderNumber, Long.valueOf(principal.getName())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
+    }
+
+    @GetMapping("activities/{orderNumber}")
+    public List<Activity> getAllActivity(@PathVariable String orderNumber, Principal principal) {
+        return activity.getByOrderNumber(orderNumber, Long.valueOf(principal.getName()));
     }
 
     @PostMapping("place-order")
-    public Map<String, String> placeOrder(@RequestBody PlaceOrderDTO placeOrder, Principal principal) {
+    @PaymentRequest
+    public Order placeOrder(@RequestBody PlaceOrderDTO placeOrder, Principal principal) {
         List<AvailabilityDTO> list = rest.checkAvailable(placeOrder);
         if (list.stream().anyMatch(item -> !item.isAvailable())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product stock is not available at the moment");
         }
-        rest.paymentInitialize(placeOrder.getPaymentInfo(), placeOrder.getAddress(), service.placeOrder(placeOrder, principal));
-        return Map.of("response", "Request went through");
+        return service.placeOrder(placeOrder, principal);
     }
 
     @PutMapping("update-status/{orderNumber}/{status}")
     public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, String> body) {
         Optional<Order> optional = service.getByOrderNumber(orderNumber);
         optional.ifPresent(order -> {
+            var prevStatus = order.getStatus();
             if (status.equals("failed")) {
                 order.setReason(body.get("reason"));
             }
@@ -56,6 +66,7 @@ public class OrderController {
             if (status.equals("paid")) {
                 rest.reduceStock(order);
             }
+            activity.save(order, prevStatus);
         });
     }
 }
