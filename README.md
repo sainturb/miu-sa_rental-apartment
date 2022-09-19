@@ -54,7 +54,8 @@
 #### APIs
 ```
 🛡 /api/orders/my [GET] user see their own orders
-🛡 /api/orders/my{orderNumber} [GET] user see their own order by order number
+🛡 /api/orders/my/{orderNumber} [GET] user see their own order by order number
+🛡 /api/orders/activities/{orderNumber} [GET] order activities by order number
 🛡 /api/orders/place-order [POST] to place order
 🔒 /api/orders/update-status/{orderNumber}/{status} [PUT] change status (only internal service will access to this)
 ```

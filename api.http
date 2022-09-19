@@ -67,10 +67,49 @@ Content-Type: application/json
 ### Search products
 GET http://localhost:30082/api/search?name=Home&price.greaterThan=150
 
-### Place an order
+### Place an order with preferred payment
 POST http://localhost:30083/api/orders/place-order
 Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": 2,
+      "quantity": 1,
+      "price": 188.95
+    }
+  ]
+}
+
+### Place an order with custom payment
+POST http://localhost:30083/api/orders/place-order
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": 2,
+      "quantity": 1,
+      "price": 188.95
+    }
+  ],
+  "paymentInfo": {
+    "type": "paypal",
+    "accountToken": "123",
+    "accountNumber": "99999999"
+  }
+}
 
 ### My orders
 GET http://localhost:30083/api/orders/my
+Authorization: Bearer {{token}}
+
+### My order by orderNumber
+GET http://localhost:30083/api/orders/my/{{orderNumber}}
+Authorization: Bearer {{token}}
+
+### Order activities by orderNumber
+GET http://localhost:30083/api/orders/activities/{{orderNumber}}
 Authorization: Bearer {{token}}

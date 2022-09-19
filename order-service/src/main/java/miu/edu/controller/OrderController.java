@@ -10,7 +10,6 @@ import miu.edu.service.ActivityService;
 import miu.edu.service.OrderService;
 import miu.edu.service.RestService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

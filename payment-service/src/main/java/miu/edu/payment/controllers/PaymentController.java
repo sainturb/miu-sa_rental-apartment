@@ -2,7 +2,6 @@ package miu.edu.payment.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import miu.edu.payment.dto.PaymentMethodDTO;
 import miu.edu.payment.dto.PaymentRequestDTO;
 import miu.edu.payment.services.RestService;
 import org.springframework.web.bind.annotation.*;

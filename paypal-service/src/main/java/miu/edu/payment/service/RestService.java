@@ -16,7 +16,11 @@ public class RestService {
     private final OrderClient orderClient;
     private final ShipmentClient shipmentClient;
     public void shipToAddress(PaymentRequestDTO paymentRequest) {
-        shipmentClient.ship(paymentRequest.getAddress());
+        if (Objects.nonNull(paymentRequest.getAddress())) {
+            shipmentClient.ship(paymentRequest.getOrderNumber(), paymentRequest.getAddress());
+        } else {
+            shipmentClient.ship(paymentRequest.getOrderNumber());
+        }
     }
 
     public void orderStatus(String orderNumber, String status, String reason) {
