@@ -6,11 +6,12 @@ metadata:
     app: payment-service # Labels and Selectors
     version: v1
 spec:
-  type: ClusterIP # Sets service type
+  type: NodePort # Sets service type
   ports:
     - name: http
       protocol: TCP
       port: 8085
       targetPort: 8085
+      nodePort: 30084
   selector:
     app: payment-service

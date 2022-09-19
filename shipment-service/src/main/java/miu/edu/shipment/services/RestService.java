@@ -20,20 +20,20 @@ public class RestService {
 
     private final RestTemplate restTemplate;
     public Optional<AddressDTO> getShippingAddress(String bearerToken) {
-        URI uri = URI.create(properties.getAccountService() + "/api/shipping-address");
+        String uri = properties.getAccountService() + "/api/shipping-address";
         HttpEntity<Void> request = new HttpEntity<>(headers(bearerToken));
         ResponseEntity<AddressDTO> response = restTemplate.exchange(uri, HttpMethod.GET, request, AddressDTO.class);
         return Optional.ofNullable(response.getBody());
     }
 
     public void orderStatus(String bearerToken, String orderNumber, String status, String reason) {
-        URI uri = URI.create(properties.getAccountService() + "/api/update-status/" + orderNumber + "/" + status);
+        String uri = properties.getAccountService() + "/api/orders/update-status/" + orderNumber + "/" + status;
         Map<String, Object> body = new HashMap<>();
         if (Objects.nonNull(reason) && !reason.isEmpty()) {
             body.put("reason", reason);
         }
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers(bearerToken));
-        restTemplate.put(uri.toString(), request);
+        restTemplate.put(uri, request);
     }
 
     private HttpHeaders headers(String bearerToken) {

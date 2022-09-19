@@ -21,7 +21,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/orders")
 @RequiredArgsConstructor
-@CrossOrigin
 @Slf4j
 public class OrderController {
     private final OrderService service;

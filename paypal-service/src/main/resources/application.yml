@@ -9,4 +9,4 @@ server:
 
 custom:
     account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
-    order-service: ${ORDER_SERVICE:http://localhost:8081}
+    order-service: ${ORDER_SERVICE:http://localhost:8083}

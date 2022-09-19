@@ -21,19 +21,19 @@ public class RestService {
     private final RestTemplate restTemplate;
     private final CustomProperties properties;
     public void shipToAddress(String bearerToken, PaymentRequestDTO paymentRequest) {
-        URI uri = URI.create(properties.getAccountService() + "/api/ship/" + paymentRequest.getOrderNumber());
+        String uri = properties.getAccountService() + "/api/ship/" + paymentRequest.getOrderNumber();
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(paymentRequest.getAddress(), headers(bearerToken));
         restTemplate.exchange(uri, HttpMethod.POST, request, Map.class);
     }
 
     public void orderStatus(String bearerToken, String orderNumber, String status, String reason) {
-        URI uri = URI.create(properties.getAccountService() + "/api/update-status/" + orderNumber + "/" + status);
+        String uri = properties.getAccountService() + "/api/orders/update-status/" + orderNumber + "/" + status;
         Map<String, Object> body = new HashMap<>();
         if (Objects.nonNull(reason)) {
             body.put("reason", reason);
         }
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers(bearerToken));
-        restTemplate.put(uri.toString(), request);
+        restTemplate.put(uri, request);
     }
 
     private HttpHeaders headers(String bearerToken) {

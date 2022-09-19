@@ -24,19 +24,9 @@ import java.util.Map;
 public class ProductController {
     private final ProductService service;
 
-    private final JobLauncher launcher;
-
-    private final Job importData;
-
     @GetMapping
     public List<Product> getAll() {
         return service.getAll();
-    }
-
-    @PutMapping("/batch")
-    public ResponseEntity<Map<String, String>> batch(@PathVariable Long id) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
-        launcher.run(importData, new JobParameters(new HashMap<>()));
-        return ResponseEntity.ok(Map.of("response", "batch completed successfully"));
     }
 
     @GetMapping("{id}")

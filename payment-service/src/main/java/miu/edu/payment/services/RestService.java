@@ -23,31 +23,31 @@ public class RestService {
     private final RestTemplate restTemplate;
 
     public Optional<PaymentMethodDTO> getPaymentMethod(String bearerToken) {
-        URI uri = URI.create(properties.getAccountService() + "/api/payment-method");
+        String uri = properties.getAccountService() + "/api/payment-method";
         HttpEntity<Void> request = new HttpEntity<>(headers(bearerToken));
         ResponseEntity<PaymentMethodDTO> response = restTemplate.exchange(uri, HttpMethod.GET, request, PaymentMethodDTO.class);
         return Optional.ofNullable(response.getBody());
     }
 
     public void failedPayment(String bearerToken, String orderNumber, String reason) {
-        URI uri = URI.create(properties.getAccountService() + "/api/update-status/" + orderNumber + "/failed");
+        String uri = properties.getOrderService() + "/api/orders/update-status/" + orderNumber + "/failed";
         Map<String, Object> body = new HashMap<>();
         if (Objects.nonNull(reason)) {
             body.put("reason", reason);
         }
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers(bearerToken));
-        restTemplate.put(uri.toString(), request);
+        restTemplate.put(uri, request);
     }
     public void decidePayment(String bearerToken, String type, PaymentRequestDTO paymentRequest) {
-        URI uri;
+        String uri;
         switch (type) {
             case "paypal":
-                uri = URI.create(properties.getPaypalService() + "/api/pay");
+                uri = properties.getPaypalService() + "/api/pay";
                 break;
             case "bank":
-                uri = URI.create(properties.getBankService() + "/api/pay");
+                uri = properties.getBankService() + "/api/pay";
                 break;
-            default: uri = URI.create(properties.getCreditService() + "/api/pay");
+            default: uri = properties.getCreditService() + "/api/pay";
                 break;
         }
         HttpEntity<PaymentRequestDTO> request = new HttpEntity<>(paymentRequest, headers(bearerToken));

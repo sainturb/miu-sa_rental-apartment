@@ -26,7 +26,7 @@ public class PaymentController {
     @PostMapping
     public void checkout(@RequestBody PaymentRequestDTO body,
                          @RequestHeader("Authorization") String bearerToken) {
-        Optional<PaymentMethodDTO> optional = Optional.of(body.getMethodInfo());
+        Optional<PaymentMethodDTO> optional = Optional.ofNullable(body.getMethodInfo());
         if (Objects.isNull(body.getMethodInfo())) {
             optional = rest.getPaymentMethod(bearerToken);
         }
