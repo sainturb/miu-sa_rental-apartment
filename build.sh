@@ -23,3 +23,5 @@ docker build -t product-service .
 
 cd ../shipment-service
 docker build -t shipment-service .
+
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)

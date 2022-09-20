@@ -82,6 +82,8 @@ Content-Type: application/json
   ]
 }
 
+> {% client.global.set("orderNumber", response.body.orderNumber); %}
+
 ### Place an order with custom payment
 POST http://localhost:30083/api/orders/place-order
 Authorization: Bearer {{token}}
@@ -101,6 +103,8 @@ Content-Type: application/json
     "accountNumber": "99999999"
   }
 }
+
+> {% client.global.set("orderNumber", response.body.orderNumber); %}
 
 ### My orders
 GET http://localhost:30083/api/orders/my
