@@ -26,9 +26,3 @@ bank-service:
 paypal-service:
   ribbon:
     listOfServers: ${PAYPAL_SERVICE:http://localhost:8088}
-#custom:
-#  account-service: ${ACCOUNT_SERVICE:http://localhost:8081}
-#  order-service: ${ORDER_SERVICE:http://localhost:8083}
-#  credit-service: ${CREDIT_SERVICE:http://localhost:8085}
-#  paypal-service: ${PAYPAL_SERVICE:http://localhost:8085}
-#  bank-service: ${BANK_SERVICE:http://localhost:8085}

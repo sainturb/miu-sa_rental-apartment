@@ -89,4 +89,26 @@ public class JwtHelper {
         }
         return result;
     }
+
+    public String generateServiceToken(String service) {
+        return Jwts.builder()
+                .setSubject(service)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + (5 * 60 * 100)))
+                .signWith(SignatureAlgorithm.HS512, service)
+                .compact();
+    }
+
+    public boolean validateServiceToken(String service, String token) {
+        try {
+            Jwts.parser()
+                    .setSigningKey(service)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException |
+                 IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }

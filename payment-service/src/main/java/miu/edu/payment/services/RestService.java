@@ -46,7 +46,7 @@ public class RestService {
 
     public void test() {
         bankClient.test();
-        creditClient.test();
-        paypalClient.test();
+//        creditClient.test();
+//        paypalClient.test();
     }
 }

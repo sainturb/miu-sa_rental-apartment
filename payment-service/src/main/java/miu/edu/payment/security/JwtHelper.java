@@ -10,7 +10,7 @@ import java.util.Map;
 public class JwtHelper {
     private final String secret = "top-secret";
     private final long expiration = 15 * 60 * 60 * 100;
-    public String generateToken(String username, Map<String, Object> claims ) {
+    public String generateToken(String username, Map<String, Object> claims) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -18,6 +18,28 @@ public class JwtHelper {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
+    }
+
+    public String generateServiceToken(String service) {
+        return Jwts.builder()
+                .setSubject(service)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + (5 * 60 * 100)))
+                .signWith(SignatureAlgorithm.HS512, service)
+                .compact();
+    }
+
+    public boolean validateServiceToken(String service, String token) {
+        try {
+            Jwts.parser()
+                    .setSigningKey(service)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException |
+                 IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     public String generateRefreshToken(String username) {

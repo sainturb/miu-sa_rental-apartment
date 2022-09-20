@@ -4,29 +4,35 @@
 - Sumayya Jahan
 - Yumjirdulam Chinbat
 
-🛡 - Protected API (with authentication)
+🌐 Public API
 
-🌐 - Public API
+🛡 Protected API (with access token)
 
-🔒 - Internal API (service to service protection)
+🔒 Internal API (service to service protection)
 
 # Structure
 
 ![alt text](assignment.drawio.png)
+
+- Product &larr; Order service
+- Order &larr; Shipment, Payment and Transaction services
+- Payment &larr; Order
+- Transaction services &larr; Payment service
+- Shipment &larr; Transaction services
 
 ### Account service : 8081
 
     Responsible for authenticating user. 
     Store following information:
         Full name, email, username, password, roles
-        Preferred payment
-
-#### APIs
+        Set payment method: create payment method
+        Update payment method: update payment method
+        Set address: create shipping address
+        Update address: update shipping address
 ```
 🌐 /api/uaa/authenticate [POST] {username, password}
 🌐 /api/uaa/register [POST] {username, email, firstname, lastname, password}
-🛡 /api/uaa/logout [DELETE]
-🛡 /api/uaa/check [GET]
+🌐 /api/me [GET]
 🛡 /api/users [CRUD] (only user with role ADMIN can access)
 🛡 /api/payment-method [POST] create or update payment mehtod
 🛡 /api/shipping-address [POST] create or update shipping address
@@ -39,9 +45,6 @@
     Shipment service stores address of user.
     Shipment has following API:
         Ship: find user's shipping address and ship it
-        Set address: create address according to userId
-        Update address: update address according to userId
-    userId is store in the token
 #### APIs
 ```
 🔒 /api/ship/{orderNumber} [POST] body: address
@@ -73,25 +76,20 @@
 ### Payment service : 8085
 
     Decides which payment service to call according to 
-    user's preferred payment method 
-
-    (We will store it inside the token)
+    user's preferred payment method
 #### APIs
 ```
 🔒 /api/checkout [POST]
 ```
 ### Credit service : 8086
-#### APIs
 ```
 🔒 /api/pay [POST] cardNumber, cardExpires, cardSecurityCode required
 ```
 ### Bank service : 8087
-#### APIs
 ```
 🔒 /api/pay [POST] bankName, bankAccount, routingNumber required
 ```
 ### Paypal service : 8088
-#### APIs
 ```
 🔒 /api/pay [POST] accountNumber, accountToken required
 ```
@@ -103,7 +101,7 @@
 
 - Java 11+
 - Maven 3.3+
-- Docker daemon
+- Docker
 - Kubernetes
 
 ## Commands
