@@ -10,6 +10,9 @@
 
 🔒 Internal API (service to service protection)
 
+<span style="color:orange">For the sake of simplicity we used application name as signing key. Service token has 5 min expiration time.</span>.
+ 
+
 # Structure
 
 ![alt text](assignment.drawio.png)
@@ -109,7 +112,7 @@
 ```shell
 sh build.sh
 cd kubernetes
-sh deploy.sh
+sh deploy.sh # it may take up to 5 minutes to run depending on running machine specification
 ```
 
 ## Extra
