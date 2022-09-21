@@ -1,14 +1,32 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: account-service
+  name: nginx-ingress
   annotations:
-    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "ingress-webapps"
 spec:
   rules:
     - http:
         paths:
-          - path: /*
+          - path: "/account"
+            pathType: ImplementationSpecific
             backend:
-              serviceName: account-service
-              servicePort: 80
+              service:
+                name: account-service
+                port:
+                  number: 80
+          - path: "/product"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: product-service
+                port:
+                  number: 80
+          - path: "/order"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: order-service
+                port:
+                  number: 80
