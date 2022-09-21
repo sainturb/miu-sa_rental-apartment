@@ -15,18 +15,18 @@ spec:
               service:
                 name: account-service
                 port:
-                  number: 80
+                  number: 8081
           - path: "/product"
             pathType: ImplementationSpecific
             backend:
               service:
                 name: product-service
                 port:
-                  number: 80
+                  number: 8084
           - path: "/order"
             pathType: ImplementationSpecific
             backend:
               service:
                 name: order-service
                 port:
-                  number: 80
+                  number: 8083
