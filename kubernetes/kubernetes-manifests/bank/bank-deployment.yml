@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: bank-service
-          image: bank-service:latest
+          image: sainturb/bank-service:latest
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8087

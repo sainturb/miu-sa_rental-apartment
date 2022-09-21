@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: shipment-service
-          image: shipment-service:latest
+          image: sainturb/shipment-service:latest
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8083

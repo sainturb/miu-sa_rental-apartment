@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: product-service:latest
+          image: sainturb/product-service:latest
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8084

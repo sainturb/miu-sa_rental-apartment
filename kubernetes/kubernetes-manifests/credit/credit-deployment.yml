@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: credit-service
-          image: credit-service:latest
+          image: sainturb/credit-service:latest
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8086
