@@ -16,7 +16,7 @@ spec:
       containers:
         - name: shipment-service
           image: shipment-service:latest
-          imagePullPolicy: Never
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8083
           envFrom:

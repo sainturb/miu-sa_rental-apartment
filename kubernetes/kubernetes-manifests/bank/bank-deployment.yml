@@ -16,7 +16,7 @@ spec:
       containers:
         - name: bank-service
           image: bank-service:latest
-          imagePullPolicy: Never
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8087
           envFrom:
