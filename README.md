@@ -1,8 +1,11 @@
 # Team members
-- Saintur Batkhuu
-- Samreth Kem
-- Sumayya Jahan
-- Yumjirdulam Chinbat
+1. Saintur Batkhuu
+2. Samreth Kem
+3. Sumayya Jahan
+4. Yumjirdulam Chinbat
+5. Anthonyo Michael
+6. Matthew Stephens
+7. Tsinat Mehari Kidane
 
 🌐 Public API
 
@@ -10,18 +13,20 @@
 
 🔒 Internal API (service to service protection)
 
-<span style="color:orange">For the sake of simplicity we used application name as signing key. Service token has 5 min expiration time.</span>.
- 
+🗑️ No longer an API
 
 # Structure
 
 ![alt text](assignment.drawio.png)
 
-- Product &larr; Order service
-- Order &larr; Shipment, Payment and Transaction services
+- Account &larr; Payment and Shipment
+- Product &larr; Order
+- Order &larr; Kafka
 - Payment &larr; Order
-- Transaction services &larr; Payment service
-- Shipment &larr; Transaction services
+- Transaction &larr; Payment
+- Shipment &larr; Order
+- Notification &larr; Kafka
+- Kafka &larr; Payment, Order, Shipment and Transaction
 
 ### Account service : 8081
 
@@ -35,7 +40,6 @@
 ```
 🌐 /api/uaa/authenticate [POST] {username, password}
 🌐 /api/uaa/register [POST] {username, email, firstname, lastname, password}
-🌐 /api/me [GET]
 🛡 /api/users [CRUD] (only user with role ADMIN can access)
 🛡 /api/payment-method [POST] create or update payment mehtod
 🛡 /api/shipping-address [POST] create or update shipping address
@@ -45,9 +49,7 @@
 
 ### Shipment service : 8082
 
-    Shipment service stores address of user.
-    Shipment has following API:
-        Ship: find user's shipping address and ship it
+    Responsible for finding user's shipping address and ship the products in the order
 #### APIs
 ```
 🔒 /api/ship/{orderNumber} [POST] body: address
@@ -63,7 +65,7 @@
 🛡 /api/orders/my/{orderNumber} [GET] user see their own order by order number
 🛡 /api/orders/activities/{orderNumber} [GET] order activities by order number
 🛡 /api/orders/place-order [POST] to place order
-🔒 /api/orders/update-status/{orderNumber}/{status} [PUT] change status (only internal service will access to this)
+🗑️ /api/orders/update-status/{orderNumber}/{status} [PUT] change status (deprecated) 
 ```
 ### Product service : 8084
     
