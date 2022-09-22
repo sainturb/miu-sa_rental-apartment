@@ -22,6 +22,7 @@
         <module>paypal-service</module>
         <module>shipment-service</module>
         <module>product-service</module>
+        <module>notification-service</module>
     </modules>
 </project>
 
