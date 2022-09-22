@@ -19,14 +19,14 @@
 
 ![alt text](assignment.drawio.png)
 
-- Account &larr; Payment and Shipment
+- Account &larr; Payment
 - Product &larr; Order
 - Order &larr; Kafka
 - Payment &larr; Order
 - Transaction &larr; Payment
-- Shipment &larr; Order
+- Review &larr; Product
 - Notification &larr; Kafka
-- Kafka &larr; Payment, Order, Shipment and Transaction
+- Kafka &larr; Payment, Order and Transaction
 
 ### Account service : 8081
 
