@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,33 +18,22 @@ public class Product {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
-
-    private String name;
-
-    private String description;
-    private Integer stock;
-
+    private int totalOccupancy;
+    private int totalBedrooms;
+    private int totalBathrooms;
+    private String homeType;
+    @Column(length = 500)
+    private String summary;
+    private String address;
+    private boolean hasTv = false;
+    private boolean hasKitchen = false;
+    private boolean hasAirCon = false;
+    private boolean hasHeating = false;
+    private boolean hasInternet = false;
     private double price;
-    public enum Category {
-        Activity("Activity"),
-        Automotive("Automotive"),
-        Beauty("Beauty"),
-        Clothing("Clothing"),
-        Electronics("Electronics"),
-        Entertainment("Entertainment"),
-        Health("Health"),
-        Home("Home"),
-        Pets("Pets");
-        private final String text;
-        Category(final String text) {
-            this.text = text;
-        }
-
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
+    private Long ownerId;
+    private double latitude;
+    private double longitude;
+    private LocalDate availableFrom;
+    private LocalDate availableUntil;
 }

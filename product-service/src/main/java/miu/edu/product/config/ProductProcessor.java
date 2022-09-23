@@ -5,18 +5,37 @@ import miu.edu.product.models.Product;
 import miu.edu.product.models.ProductDTO;
 import org.springframework.batch.item.ItemProcessor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Slf4j
-public class ProductProcessor implements ItemProcessor<Product, ProductDTO> {
+public class ProductProcessor implements ItemProcessor<ProductDTO, Product> {
+
 
     @Override
-    public ProductDTO process(final Product product) {
-        final Long id = product.getId();
-        final String name = product.getName();
-        final String description = product.getDescription();
-        final String category = product.getCategory().toString();
-        final Integer stock = product.getStock();
-        final double price = product.getPrice();
-        final ProductDTO transformedProduct = new ProductDTO(id, category, name, description, stock, price);
+    public Product process(final ProductDTO product) {
+        final Product transformedProduct = new Product();
+        transformedProduct.setId(product.getId());
+        transformedProduct.setTotalOccupancy(product.getTotalOccupancy());
+        transformedProduct.setTotalBedrooms(product.getTotalBedrooms());
+        transformedProduct.setTotalBathrooms(product.getTotalBathrooms());
+        transformedProduct.setHomeType(product.getHomeType());
+        transformedProduct.setAddress(product.getAddress());
+        transformedProduct.setSummary(product.getSummary());
+        transformedProduct.setHasAirCon(product.isHasAirCon());
+        transformedProduct.setHasHeating(product.isHasHeating());
+        transformedProduct.setHasInternet(product.isHasInternet());
+        transformedProduct.setHasTv(product.isHasTv());
+        transformedProduct.setHasKitchen(product.isHasKitchen());
+        transformedProduct.setOwnerId(product.getOwnerId());
+        transformedProduct.setLatitude(product.getLatitude());
+        transformedProduct.setLongitude(product.getLongitude());
+        transformedProduct.setPrice(product.getPrice());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate start = LocalDate.parse(product.getAvailableFrom(), formatter);
+        LocalDate end = LocalDate.parse(product.getAvailableUntil(), formatter);
+        transformedProduct.setAvailableFrom(start);
+        transformedProduct.setAvailableUntil(end);
         log.info("Converting (" + product + ") into (" + transformedProduct + ")");
         return transformedProduct;
     }

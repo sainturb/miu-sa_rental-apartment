@@ -23,6 +23,6 @@ public class SearchController {
                                 @RequestParam(value = "price.lessThan", required = false) Double priceLessThan,
                                 @RequestParam(value = "price.greaterThan", required = false) Double priceGreaterThan
                        ) {
-        return service.query(name, description, category, priceLessThan, priceGreaterThan);
+        return service.getAll();
     }
 }

@@ -1,6 +1,7 @@
 package miu.edu.product.controllers;
 
 import lombok.RequiredArgsConstructor;
+import miu.edu.product.models.BetweenDateDTO;
 import miu.edu.product.models.Product;
 import miu.edu.product.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -38,14 +39,14 @@ public class ProductController {
         return service.save(product);
     }
 
-    @PutMapping("{id}/reduce-stocks/{count}")
-    public void reduceStocks(@PathVariable Long id, @PathVariable Integer count) {
-        service.reduceStocks(id, count);
+    @PutMapping("{id}/make-unavailable-during")
+    public void makeUnavailableBetween(@PathVariable Long id, @RequestBody BetweenDateDTO between) {
+        service.makeUnavailableBetween(id, between);
     }
 
-    @GetMapping("{id}/availability/{count}")
-    public Map<String, Object> availability(@PathVariable Long id, @PathVariable Integer count) {
-        return service.getAvailability(id, count);
+    @GetMapping("{id}/availability")
+    public Map<String, Object> availability(@PathVariable Long id, @RequestBody BetweenDateDTO between) {
+        return service.getAvailability(id, between);
     }
 
     @DeleteMapping("{id}")

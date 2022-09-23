@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shipment-service
+  name: review-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: shipment-service
+      app: review-service
   template:
     metadata:
       labels:
-        app: shipment-service
+        app: review-service
         version: v1
     spec:
       containers:
-        - name: shipment-service
-          image: sainturb/shipment-service:latest
+        - name: review-service
+          image: sainturb/review-service:latest
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: 8083
+            - containerPort: 8084
           envFrom:
             - configMapRef:
-                name: shipment-config
+                name: review-config
           securityContext:
             runAsUser: 1000

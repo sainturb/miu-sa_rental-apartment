@@ -29,14 +29,15 @@ public class BatchConfiguration {
     public final StepBuilderFactory stepBuilderFactory;
     private final DataSource dataSource;
     @Bean
-    public FlatFileItemReader<Product> reader() {
-        return new FlatFileItemReaderBuilder<Product>()
+    public FlatFileItemReader<ProductDTO> reader() {
+        return new FlatFileItemReaderBuilder<ProductDTO>()
                 .name("productItemReader")
-                .resource(new ClassPathResource("products.csv"))
+                .resource(new ClassPathResource("airbnb.csv"))
+                .linesToSkip(1)
                 .delimited()
-                .names("name","category","description","price","stock", "id")
-                .fieldSetMapper(new BeanWrapperFieldSetMapper<Product>() {{
-                    setTargetType(Product.class);
+                .names("id","total_occupancy","total_bedrooms","total_bathrooms","home_type","summary","address","has_tv","has_kitchen","has_air_con","has_heating","has_internet","price","owner_id","latitude","longitude","available_from","available_until")
+                .fieldSetMapper(new BeanWrapperFieldSetMapper<ProductDTO>() {{
+                    setTargetType(ProductDTO.class);
                 }})
                 .build();
     }
@@ -47,10 +48,10 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public JdbcBatchItemWriter<ProductDTO> writer() {
-        return new JdbcBatchItemWriterBuilder<ProductDTO>()
+    public JdbcBatchItemWriter<Product> writer() {
+        return new JdbcBatchItemWriterBuilder<Product>()
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("INSERT INTO product (id, category, name, description, stock, price) VALUES (:id, :category, :name, :description, :stock, :price) ON CONFLICT DO NOTHING")
+                .sql("INSERT INTO product (id,total_occupancy,total_bedrooms,total_bathrooms,home_type,summary,address,has_tv,has_kitchen,has_air_con,has_heating,has_internet,price,owner_id,latitude,longitude,available_from,available_until) VALUES (:id,:totalOccupancy,:totalBedrooms,:totalBathrooms,:homeType,:summary,:address,:hasTv,:hasKitchen,:hasAirCon,:hasHeating,:hasInternet,:price,:ownerId,:latitude,:longitude,:availableFrom,:availableUntil) ON CONFLICT DO NOTHING")
                 .dataSource(dataSource)
                 .build();
     }
@@ -66,9 +67,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(JdbcBatchItemWriter<ProductDTO> writer) {
+    public Step step1(JdbcBatchItemWriter<Product> writer) {
         return stepBuilderFactory.get("step1")
-                .<Product, ProductDTO> chunk(100)
+                .<ProductDTO, Product> chunk(100)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer)

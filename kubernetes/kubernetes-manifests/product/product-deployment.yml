@@ -18,7 +18,7 @@ spec:
           image: sainturb/product-service:latest
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: 8084
+            - containerPort: 8082
           envFrom:
             - configMapRef:
                 name: product-config
