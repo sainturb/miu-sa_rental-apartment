@@ -4,12 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import miu.edu.product.models.BetweenDateDTO;
 import miu.edu.product.models.Product;
 import miu.edu.product.repositories.ProductRepository;
+import miu.edu.product.search.ProductSearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,11 +20,10 @@ import java.util.Optional;
 @Transactional
 @Slf4j
 public class ProductService {
-
     @Autowired
     private ProductRepository repository;
-
-//    private final ProductSearchRepository searchRepository;
+    @Autowired
+    private ProductSearchRepository searchRepository;
 
     public List<Product> getAll() {
         return repository.findAll();
@@ -37,10 +38,12 @@ public class ProductService {
     }
 
     public Product save(Product product) {
+        searchRepository.save(product);
         return repository.save(product);
     }
 
     public void delete(Long id) {
+        searchRepository.deleteById(id);
         repository.deleteById(id);
     }
 
@@ -48,7 +51,7 @@ public class ProductService {
         Optional<Product> productOptional = repository.findById(id);
         productOptional.ifPresent(product -> {
             product.setAvailableFrom(between.getEndDate().plusDays(1));
-            repository.save(product);
+            save(product);
             log.info("{} between these day it will be available: from {} - until {}", product.getAddress(), product.getAvailableFrom(), product.getAvailableUntil());
         });
     }

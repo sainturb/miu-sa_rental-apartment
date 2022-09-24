@@ -69,7 +69,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1(JdbcBatchItemWriter<Product> writer) {
         return stepBuilderFactory.get("step1")
-                .<ProductDTO, Product> chunk(100)
+                .<ProductDTO, Product> chunk(1000)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer)

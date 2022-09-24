@@ -9,3 +9,75 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmd
 
 ### Get products
 GET http://localhost:8082/api/search
+
+### Search products
+GET localhost:9200/product/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "query_string": {
+      "query": "homeType: apartment & totalOccupancy: 4"
+    }
+  }
+}
+
+### Search products
+GET localhost:9200/product/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "homeType": "apartment"
+          }
+        },
+        {
+          "term": {
+            "totalOccupancy": 4
+          }
+        },
+        {
+          "term": {
+            "hasInternet": true
+          }
+        },
+        {
+          "term": {
+            "hasAirCon": true
+          }
+        },
+        {
+          "range": {
+            "availableUntil": {
+              "lte": "2022-10-01"
+            }
+          }
+        },
+        {
+          "range": {
+            "availableFrom": {
+              "gte": "2022-09-19"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "size": 10
+}
+
+
+
+### Search products 1
+GET localhost:8082/api/_search/id=1
+Content-Type: application/json
+
+//{ "query": { "query_string": { "fields": [ "id" ], "query": 1 } } }
+
+###
+DELETE http://localhost:9200/_all
+

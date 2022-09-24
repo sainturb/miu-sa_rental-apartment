@@ -9,10 +9,7 @@ import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.elasticsearch.config.ElasticsearchConfigurationSupport;
 import org.springframework.data.elasticsearch.core.convert.ElasticsearchCustomConversions;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Arrays;
 
 @Configuration
@@ -28,7 +25,9 @@ public class ElasticsearchConfiguration extends ElasticsearchConfigurationSuppor
                         new InstantWritingConverter(),
                         new InstantReadingConverter(),
                         new LocalDateWritingConverter(),
-                        new LocalDateReadingConverter()
+                        new LocalDateReadingConverter(),
+                        new LocalDateTimeWritingConverter(),
+                        new LocalDateTimeReadingConverter()
                 )
         );
     }
@@ -102,6 +101,30 @@ public class ElasticsearchConfiguration extends ElasticsearchConfigurationSuppor
                 return null;
             }
             return LocalDate.parse(source);
+        }
+    }
+
+    @WritingConverter
+    static class LocalDateTimeWritingConverter implements Converter<LocalDateTime, String> {
+
+        @Override
+        public String convert(LocalDateTime source) {
+            if (source == null) {
+                return null;
+            }
+            return source.toString();
+        }
+    }
+
+    @ReadingConverter
+    static class LocalDateTimeReadingConverter implements Converter<String, LocalDateTime> {
+
+        @Override
+        public LocalDateTime convert(String source) {
+            if (source == null) {
+                return null;
+            }
+            return LocalDateTime.parse(source);
         }
     }
 }
