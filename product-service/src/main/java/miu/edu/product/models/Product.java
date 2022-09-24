@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@org.springframework.data.elasticsearch.annotations.Document(indexName = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +36,5 @@ public class Product {
     private double longitude;
     private LocalDate availableFrom;
     private LocalDate availableUntil;
+    private double rating = 5;
 }

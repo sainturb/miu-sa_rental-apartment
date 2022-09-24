@@ -1,10 +1,8 @@
 package miu.edu.service;
 
 import lombok.RequiredArgsConstructor;
-import miu.edu.model.Address;
 import miu.edu.model.Payment;
 import miu.edu.model.User;
-import miu.edu.repository.AddressRepository;
 import miu.edu.repository.PaymentRepository;
 import miu.edu.repository.UserRepository;
 import org.modelmapper.ModelMapper;

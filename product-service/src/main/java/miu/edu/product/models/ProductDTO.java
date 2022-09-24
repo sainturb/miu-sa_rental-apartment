@@ -1,11 +1,7 @@
 package miu.edu.product.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.time.Instant;
-import java.time.LocalDate;
 
 @Data
 public class ProductDTO {

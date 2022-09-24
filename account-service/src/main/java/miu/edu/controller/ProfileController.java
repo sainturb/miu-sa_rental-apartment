@@ -1,7 +1,6 @@
 package miu.edu.controller;
 
 import lombok.RequiredArgsConstructor;
-import miu.edu.model.Address;
 import miu.edu.model.Payment;
 import miu.edu.service.UserServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -22,11 +21,6 @@ public class ProfileController {
     @GetMapping("/payment-method")
     public Payment getPaymentMethod(Principal principal) {
         return service.getMethod(Long.valueOf(principal.getName()));
-    }
-
-    @GetMapping("/shipping-address")
-    public Address getAddress(Principal principal) {
-        return service.getAddress(Long.valueOf(principal.getName()));
     }
     @PostMapping("/payment-method")
     public void updatePaymentMethod(Principal principal, @RequestBody @Valid Payment method) {
@@ -52,8 +46,4 @@ public class ProfileController {
         service.updatePaymentMethod(Long.valueOf(principal.getName()), method);
     }
 
-    @PostMapping("/shipping-address")
-    public void updateAddress(Principal principal, @Valid @RequestBody Address address) {
-        service.updateAddress(Long.valueOf(principal.getName()), address);
-    }
 }

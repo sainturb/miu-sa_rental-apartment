@@ -1,12 +1,13 @@
 package miu.edu.product.services;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.product.models.BetweenDateDTO;
 import miu.edu.product.models.Product;
 import miu.edu.product.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -14,14 +15,21 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
 @Slf4j
 public class ProductService {
 
-    private final ProductRepository repository;
+    @Autowired
+    private ProductRepository repository;
+
+//    private final ProductSearchRepository searchRepository;
 
     public List<Product> getAll() {
         return repository.findAll();
+    }
+
+    public long getCount() {
+        return repository.count();
     }
 
     public Optional<Product> getById(Long id) {

@@ -32,9 +32,6 @@ public class User {
     private String password;
 
     @OneToOne
-    private Address address;
-
-    @OneToOne
     private Payment paymentMethod;
 
     @ManyToMany(fetch = FetchType.EAGER)

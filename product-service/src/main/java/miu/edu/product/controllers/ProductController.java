@@ -1,9 +1,9 @@
 package miu.edu.product.controllers;
 
-import lombok.RequiredArgsConstructor;
 import miu.edu.product.models.BetweenDateDTO;
 import miu.edu.product.models.Product;
 import miu.edu.product.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +13,18 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/products")
-@RequiredArgsConstructor
 public class ProductController {
-    private final ProductService service;
+    @Autowired
+    private ProductService service;
 
     @GetMapping
     public List<Product> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("count")
+    public long getCount() {
+        return service.getCount();
     }
 
     @GetMapping("{id}")

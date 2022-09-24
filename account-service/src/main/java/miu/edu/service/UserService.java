@@ -1,6 +1,5 @@
 package miu.edu.service;
 
-import miu.edu.model.Address;
 import miu.edu.model.Payment;
 import miu.edu.model.User;
 

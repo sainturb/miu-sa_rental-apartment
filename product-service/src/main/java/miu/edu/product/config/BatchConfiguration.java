@@ -51,7 +51,7 @@ public class BatchConfiguration {
     public JdbcBatchItemWriter<Product> writer() {
         return new JdbcBatchItemWriterBuilder<Product>()
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                .sql("INSERT INTO product (id,total_occupancy,total_bedrooms,total_bathrooms,home_type,summary,address,has_tv,has_kitchen,has_air_con,has_heating,has_internet,price,owner_id,latitude,longitude,available_from,available_until) VALUES (:id,:totalOccupancy,:totalBedrooms,:totalBathrooms,:homeType,:summary,:address,:hasTv,:hasKitchen,:hasAirCon,:hasHeating,:hasInternet,:price,:ownerId,:latitude,:longitude,:availableFrom,:availableUntil) ON CONFLICT DO NOTHING")
+                .sql("INSERT INTO product (id,total_occupancy,total_bedrooms,total_bathrooms,home_type,summary,address,has_tv,has_kitchen,has_air_con,has_heating,has_internet,price,owner_id,latitude,longitude,available_from,available_until,rating) VALUES (:id,:totalOccupancy,:totalBedrooms,:totalBathrooms,:homeType,:summary,:address,:hasTv,:hasKitchen,:hasAirCon,:hasHeating,:hasInternet,:price,:ownerId,:latitude,:longitude,:availableFrom,:availableUntil,5) ON CONFLICT DO NOTHING")
                 .dataSource(dataSource)
                 .build();
     }

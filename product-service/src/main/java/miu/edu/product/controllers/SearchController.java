@@ -25,4 +25,9 @@ public class SearchController {
                        ) {
         return service.getAll();
     }
+
+    @GetMapping("count")
+    public long getCount() {
+        return service.getCount();
+    }
 }
