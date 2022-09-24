@@ -6,10 +6,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmd
 PUT http://localhost:8082/api/bulk
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
 
-
-### Get products
-GET http://localhost:8082/api/search
-
 ### Search products
 GET localhost:9200/product/_search
 Content-Type: application/json
@@ -73,10 +69,8 @@ Content-Type: application/json
 
 
 ### Search products 1
-http://localhost:8082/api/_search?homeType=apartment&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
+http://localhost:8082/api/_search?homeType=apartment&totalBedrooms=3,5&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
 Content-Type: application/json
-
-//{ "query": { "query_string": { "fields": [ "id" ], "query": 1 } } }
 
 ###
 DELETE http://localhost:9200/_all

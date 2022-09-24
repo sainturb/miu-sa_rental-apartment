@@ -20,9 +20,8 @@ import java.util.stream.StreamSupport;
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class SearchController {
-
     private final static List<String> fields = List.of("homeType", "hasTv", "hasKitchen", "hasAirCon", "hasHeating", "hasInternet");
-    private final static List<String> ranges = List.of("raging", "totalOccupancy", "totalBedrooms", "totalBathrooms", "price");
+    private final static List<String> ranges = List.of("rating", "totalOccupancy", "totalBedrooms", "totalBathrooms", "price");
     private final static List<String> contains = List.of("address", "summary");
     private final ProductRepository repository;
     private final ProductSearchRepository searchRepository;
