@@ -73,7 +73,7 @@ Content-Type: application/json
 
 
 ### Search products 1
-GET localhost:8082/api/_search/id=1
+http://localhost:8082/api/_search?homeType=apartment&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
 Content-Type: application/json
 
 //{ "query": { "query_string": { "fields": [ "id" ], "query": 1 } } }

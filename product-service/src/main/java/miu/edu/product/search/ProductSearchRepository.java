@@ -1,6 +1,8 @@
 package miu.edu.product.search;
 
 import miu.edu.product.models.Product;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
@@ -14,6 +16,8 @@ public interface ProductSearchRepository extends ElasticsearchRepository<Product
 
 interface ProductSearchRepositoryInternal {
     Stream<Product> search(String query);
+
+    Stream<Product> search(NativeSearchQuery searchQuery);
 }
 
 class ProductSearchRepositoryInternalImpl implements ProductSearchRepositoryInternal {
@@ -27,6 +31,10 @@ class ProductSearchRepositoryInternalImpl implements ProductSearchRepositoryInte
     @Override
     public Stream<Product> search(String query) {
         NativeSearchQuery nativeSearchQuery = new NativeSearchQuery(queryStringQuery(query));
+        return elasticsearchTemplate.search(nativeSearchQuery, Product.class).map(SearchHit::getContent).stream();
+    }
+    @Override
+    public Stream<Product> search(NativeSearchQuery nativeSearchQuery) {
         return elasticsearchTemplate.search(nativeSearchQuery, Product.class).map(SearchHit::getContent).stream();
     }
 }
