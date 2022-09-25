@@ -33,13 +33,10 @@ public class RestService {
         return list;
     }
 
-    public void paymentInitialize(Map<String, Object> paymentInfo, Map<String, Object> address, Order order) {
+    public void paymentInitialize(Map<String, Object> paymentInfo, Order order) {
         Map<String, Object> body = new HashMap<>();
         if (Objects.nonNull(paymentInfo)) {
             body.put("methodInfo", paymentInfo);
-        }
-        if (Objects.nonNull(address)) {
-            body.put("address", address);
         }
         body.put("orderNumber", order.getOrderNumber());
         body.put("totalAmount", order.getTotalAmount());

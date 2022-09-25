@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/account
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
 
@@ -27,11 +27,25 @@ spring:
     loadbalancer:
       ribbon:
         enable: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: group-1
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 server:
   port: 8083
   error:
     include-message: always
+account-service:
+  ribbon:
+    listOfServers: ${ACCOUNT_SERVICE:http://localhost:8081}
 product-service:
   ribbon:
     listOfServers: ${PRODUCT_SERVICE:http://localhost:8084}

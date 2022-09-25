@@ -34,7 +34,7 @@ public class PaymentRequestTrigger {
             PlaceOrderDTO placeOrder = mapper.convertValue(requestBody, PlaceOrderDTO.class);
             log.info(placeOrder.toString());
             log.info("Sending request to payment");
-            rest.paymentInitialize(placeOrder.getPaymentInfo(), placeOrder.getAddress(), order);
+            rest.paymentInitialize(placeOrder.getPaymentInfo(), order);
         } catch (Exception e) {
             e.printStackTrace();
         }

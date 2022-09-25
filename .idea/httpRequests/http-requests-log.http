@@ -1,3 +1,17 @@
+POST http://localhost:30081/api/uaa/authenticate
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+GET http://localhost:30081/actuator/health
+
+###
+
 GET http://localhost:9200/product/_search
 Content-Type: application/json
 
@@ -860,36 +874,6 @@ Content-Type: application/json
 }
 
 <> 2022-09-24T124622.400.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "query_string": {
-      "query": "homeType: apartment & totalOccupancy: 4 & availableFrom: [2022-09-15 TO 2022-09-15] & availableUntil: [2022-10-02 TO 2022-10-02]"
-    }
-  }
-}
-
-<> 2022-09-24T124530.200.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "query_string": {
-      "query": "homeType: apartment & totalOccupancy: 4 & availableFrom: [2022-09-15 TO *] & availableUntil: [* TO 2022-10-02]"
-    }
-  }
-}
-
-<> 2022-09-24T124512.200.json
 
 ###
 

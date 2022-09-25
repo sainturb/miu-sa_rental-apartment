@@ -16,7 +16,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-    private final AddressRepository addressRepository;
     private final PaymentRepository paymentRepository;
     private final ModelMapper mapper;
     @Override
@@ -58,27 +57,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateAddress(Long id, Address address) {
-        Optional<User> optional = getById(id);
-        optional.ifPresent(user -> {
-            if (Objects.nonNull(user.getAddress())) {
-                address.setId(user.getAddress().getId());
-            }
-            var saved = addressRepository.save(address);
-            user.setAddress(saved);
-            save(user);
-        });
-    }
-
-    @Override
     public Payment getMethod(Long userId) {
         Optional<User> optional = getById(userId);
         return optional.map(User::getPaymentMethod).orElse(null);
-    }
-
-    @Override
-    public Address getAddress(Long userId) {
-        Optional<User> optional = getById(userId);
-        return optional.map(User::getAddress).orElse(null);
     }
 }

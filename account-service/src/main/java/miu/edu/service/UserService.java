@@ -13,7 +13,5 @@ public interface UserService {
     User save(User user);
     void delete(Long id);
     void updatePaymentMethod(Long id, Payment method);
-    void updateAddress(Long id, Address address);
     Payment getMethod(Long userId);
-    Address getAddress(Long userId);
 }
