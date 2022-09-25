@@ -13,8 +13,6 @@ cd ../order
 sh run.sh
 cd ../payment
 sh run.sh
-cd ../shipment
-sh run.sh
 cd ../paypal
 sh run.sh
 cd ../bank

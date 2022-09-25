@@ -5,5 +5,3 @@ metadata:
   labels:
     app: bank-service
 data:
-  SHIPMENT_SERVICE: http://shipment-service:8082
-  ORDER_SERVICE: http://order-service:8083

@@ -6,7 +6,6 @@ metadata:
     app: payment-service
 data:
   ACCOUNT_SERVICE: http://account-service:8081
-  ORDER_SERVICE: http://order-service:8083
   CREDIT_SERVICE: http://credit-service:8086
   BANK_SERVICE: http://bank-service:8087
   PAYPAL_SERVICE: http://paypal-service:8088
