@@ -41,18 +41,20 @@
 🌐 /api/uaa/authenticate [POST] {username, password}
 🌐 /api/uaa/register [POST] {username, email, firstname, lastname, password}
 🛡 /api/users [CRUD] (only user with role ADMIN can access)
+🛡 /api/retrieve-info [GET]
 🛡 /api/payment-method [POST] create or update payment mehtod
-🛡 /api/shipping-address [POST] create or update shipping address
 🛡 /api/payment-method [GET] get user's payment mehtod
-🛡 /api/shipping-address [GET] get user's shipping address
 ```
+### Product service : 8082
 
-### Shipment service : 8082
-
-    Responsible for finding user's shipping address and ship the products in the order
+    Product service stores all the product information.
+    We used batch processing to insert 1000 fake data to DB.
 #### APIs
 ```
-🔒 /api/ship/{orderNumber} [POST] body: address
+🛡 /api/products [CRUD] query parameters will filter products
+🌐 /api/search [GET] query parameters {name, description, category, price.lessThan, price.greaterThan}
+🔒 /api/products/{id}/make-unavailable-between [PUT] reduce stock when user orders products (only internal service will access to this)
+🔒 /api/products/{id}/availablility [POST] reduce stock when user orders products (only internal service will access to this)
 ```
 ### Order service : 8083
     
@@ -67,17 +69,7 @@
 🛡 /api/orders/place-order [POST] to place order
 🗑️ /api/orders/update-status/{orderNumber}/{status} [PUT] change status (deprecated) 
 ```
-### Product service : 8084
-    
-    Product service stores all the product information.
-    We used batch processing to insert 1000 fake data to DB.
-#### APIs
-```
-🛡 /api/products [CRUD] query parameters will filter products
-🌐 /api/search [GET] query parameters {name, description, category, price.lessThan, price.greaterThan}
-🔒 /api/products/{id}/reduce-stocks/{count} [PUT] reduce stock when user orders products (only internal service will access to this)
-🔒 /api/products/{id}/availablility/{count} [GET] reduce stock when user orders products (only internal service will access to this)
-```
+
 ### Payment service : 8085
 
     Decides which payment service to call according to 

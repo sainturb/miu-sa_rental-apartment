@@ -49,7 +49,7 @@ public class ProductController {
         service.makeUnavailableBetween(id, between);
     }
 
-    @GetMapping("{id}/availability")
+    @PostMapping("{id}/availability")
     public Map<String, Object> availability(@PathVariable Long id, @RequestBody BetweenDateDTO between) {
         return service.getAvailability(id, between);
     }
