@@ -3,14 +3,9 @@ package miu.edu.product.config;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.product.models.Product;
 import miu.edu.product.models.ProductDTO;
-import miu.edu.product.search.ProductSearchRepository;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
