@@ -5,9 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class ItemDTO {
-    private Long productId;
-    private Double price;
+public class BetweenDateDTO {
     private LocalDate startDate;
     private LocalDate endDate;
 }

@@ -45,8 +45,8 @@ public class OrderController {
     @PostMapping("place-order")
     @PaymentRequest
     public Order placeOrder(@RequestBody PlaceOrderDTO placeOrder, Principal principal) {
-        List<AvailabilityDTO> list = rest.checkAvailable(placeOrder);
-        if (list.stream().anyMatch(item -> !item.isAvailable())) {
+        AvailabilityDTO activity = rest.checkAvailable(placeOrder);
+        if (!activity.isAvailable()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product stock is not available at the moment");
         }
         return service.placeOrder(placeOrder, principal);
@@ -58,12 +58,12 @@ public class OrderController {
         optional.ifPresent(order -> {
             var prevStatus = order.getStatus();
             if (status.equals("failed")) {
-                order.setReason(body.get("reason"));
+                order.setNote(body.get("note"));
             }
             order.setStatus(status);
             order = service.save(order);
             if (status.equals("paid")) {
-                rest.reduceStock(order);
+                rest.makeUnavailableBetween(order);
             }
             activity.save(order, prevStatus);
         });

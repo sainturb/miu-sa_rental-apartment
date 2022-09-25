@@ -16,5 +16,5 @@ public class Activity {
     private Long userId;
     private Instant createdDate;
     private String activity;
-    private String comment;
+    private String note;
 }

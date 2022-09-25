@@ -3,8 +3,7 @@ package miu.edu.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,12 +15,11 @@ public class Order {
     private Long id;
     @Column(unique = true)
     private String orderNumber;
-    private Instant orderDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String status;
     private Double totalAmount;
     private Long userId;
-    private String reason;
-    @OneToMany
-    @JoinColumn(name = "id_order")
-    private List<Item> items;
+    private String note;
+    private Long productId;
 }

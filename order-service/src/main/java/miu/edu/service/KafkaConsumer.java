@@ -1,7 +1,6 @@
 package miu.edu.service;
 
 import miu.edu.aop.SendNotification;
-import miu.edu.dto.NotificationDTO;
 import miu.edu.dto.OrderStatusDTO;
 import miu.edu.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class KafkaConsumer {
         optional.ifPresent(order -> {
             var prevStatus = order.getStatus();
             order.setStatus(orderStatus.getStatus());
-            order.setReason(orderStatus.getMessage());
+            order.setNote(orderStatus.getMessage());
             order = orderService.save(order);
             activityService.save(order, prevStatus);
         });
