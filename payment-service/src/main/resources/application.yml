@@ -5,6 +5,17 @@ spring:
     loadbalancer:
       ribbon:
         enable: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: group-1
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 server:
   port: 8085
@@ -14,9 +25,6 @@ server:
 account-service:
   ribbon:
     listOfServers: ${ACCOUNT_SERVICE:http://localhost:8081}
-order-service:
-  ribbon:
-    listOfServers: ${ORDER_SERVICE:http://localhost:8083}
 credit-service:
   ribbon:
     listOfServers: ${CREDIT_SERVICE:http://localhost:8086}

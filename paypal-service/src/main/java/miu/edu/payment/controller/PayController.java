@@ -21,7 +21,6 @@ public class PayController {
             rest.orderStatus(body.getOrderNumber(), "failed", "Missing information on paypal transaction");
         } else {
             rest.orderStatus(body.getOrderNumber(), "paid", "Paid using Paypal method");
-            rest.shipToAddress(body);
         }
     }
 

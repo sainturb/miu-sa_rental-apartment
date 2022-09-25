@@ -1,19 +1,19 @@
 spring:
-    application:
-        name: credit-service
-    cloud:
-        loadbalancer:
-            ribbon:
-                enable: false
+  application:
+    name: credit-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: group-1
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 server:
-    port: 8086
-    error:
-        include-message: always
-
-shipment-service:
-    ribbon:
-        listOfServers: ${SHIPMENT_SERVICE:http://localhost:8082}
-order-service:
-    ribbon:
-        listOfServers: ${ORDER_SERVICE:http://localhost:8083}
+  port: 8086
+  error:
+    include-message: always

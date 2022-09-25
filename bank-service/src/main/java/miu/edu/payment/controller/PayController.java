@@ -23,7 +23,6 @@ public class PayController {
             rest.orderStatus(body.getOrderNumber(), "failed", "Missing information on bank transaction");
         } else {
             rest.orderStatus(body.getOrderNumber(), "paid", "Paid using Bank method");
-            rest.shipToAddress(body);
         }
     }
 

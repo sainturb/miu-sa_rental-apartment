@@ -22,7 +22,6 @@ public class PayController {
             rest.orderStatus(body.getOrderNumber(), "failed", "Missing information on credit transaction");
         } else {
             rest.orderStatus(body.getOrderNumber(), "paid", "Paid using Credit card method");
-            rest.shipToAddress(body);
         }
     }
 
