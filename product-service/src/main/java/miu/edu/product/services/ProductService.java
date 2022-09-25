@@ -3,6 +3,7 @@ package miu.edu.product.services;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.product.models.BetweenDateDTO;
 import miu.edu.product.models.Product;
+import miu.edu.product.models.Review;
 import miu.edu.product.repositories.ProductRepository;
 import miu.edu.product.search.ProductSearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Transactional
@@ -63,5 +65,19 @@ public class ProductService {
             return Map.of("available", available, "from", optional.get().getAvailableFrom(), "until", optional.get().getAvailableUntil());
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+    }
+
+    public void updateRating(Long productId, List<Review> reviews) {
+        var count = 1 + reviews.size();
+        AtomicReference<Double> total = new AtomicReference<>((double) 5);
+        this.getById(productId)
+                .ifPresent(product -> {
+                    reviews.stream()
+                            .map(Review::getRating)
+                            .reduce(Double::sum)
+                            .ifPresent(sum -> total.getAndUpdate(current -> current + sum));
+                    product.setRating(total.get() / count);
+                    this.save(product);
+                });
     }
 }
