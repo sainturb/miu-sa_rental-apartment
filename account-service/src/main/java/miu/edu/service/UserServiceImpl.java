@@ -8,9 +8,7 @@ import miu.edu.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +58,17 @@ public class UserServiceImpl implements UserService {
     public Payment getMethod(Long userId) {
         Optional<User> optional = getById(userId);
         return optional.map(User::getPaymentMethod).orElse(null);
+    }
+
+    @Override
+    public Map<String, String> retrieveInfo(Long userId) {
+        Map<String, String> map = new HashMap<>();
+        Optional<User> optional = getById(userId);
+        optional.ifPresent(user -> {
+            map.put("email", user.getEmail());
+            map.put("fullname", String.format("%s %s", user.getFirstname(), user.getLastname()));
+            map.put("username", user.getUsername());
+        });
+        return map;
     }
 }

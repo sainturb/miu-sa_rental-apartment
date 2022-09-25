@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -18,6 +19,10 @@ import java.util.Objects;
 public class ProfileController {
     private final UserServiceImpl service;
 
+    @GetMapping("/retrieve-info/{userId}")
+    public Map<String, String> retrieveInfo(@PathVariable Long userId) {
+        return service.retrieveInfo(userId);
+    }
     @GetMapping("/payment-method")
     public Payment getPaymentMethod(Principal principal) {
         return service.getMethod(Long.valueOf(principal.getName()));
