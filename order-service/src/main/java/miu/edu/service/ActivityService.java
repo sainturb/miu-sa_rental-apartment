@@ -21,8 +21,8 @@ public class ActivityService {
         activity.setActivity(String.format("Status change from %s to %s", prevStatus, order.getStatus()));
         activity.setCreatedDate(Instant.now());
         activity.setUserId(order.getUserId());
-        if (Objects.nonNull(order.getReason())) {
-            activity.setComment(order.getReason());
+        if (Objects.nonNull(order.getNote())) {
+            activity.setNote(order.getNote());
         }
         repository.save(activity);
     }
