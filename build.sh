@@ -29,8 +29,8 @@ cd ../product-service
 docker build -t sainturb/product-service .
 docker push sainturb/product-service:latest
 
-cd ../shipment-service
-docker build -t sainturb/shipment-service .
-docker push sainturb/shipment-service:latest
+cd ../notification-service
+docker build -t sainturb/notification-service .
+docker push sainturb/notification-service:latest
 
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)

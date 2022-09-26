@@ -6,7 +6,7 @@ spring:
       ribbon:
         enable: false
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
     consumer:
       group-id: group-1
       auto-offset-reset: latest
