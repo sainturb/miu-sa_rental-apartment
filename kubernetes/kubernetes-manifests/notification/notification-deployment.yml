@@ -16,7 +16,7 @@ spec:
       containers:
         - name: notification-service
           image: sainturb/notification-service:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8089
           envFrom:

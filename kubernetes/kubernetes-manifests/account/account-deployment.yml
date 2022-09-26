@@ -16,7 +16,7 @@ spec:
       containers:
         - name: account-service
           image: sainturb/account-service:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8081
           envFrom:

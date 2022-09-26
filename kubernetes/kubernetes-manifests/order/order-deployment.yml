@@ -16,7 +16,7 @@ spec:
       containers:
         - name: order-service
           image: sainturb/order-service:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8083
           envFrom:

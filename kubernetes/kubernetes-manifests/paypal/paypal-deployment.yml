@@ -16,7 +16,7 @@ spec:
       containers:
         - name: paypal-service
           image: sainturb/paypal-service:latest
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8088
           envFrom:
