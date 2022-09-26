@@ -1,7 +1,7 @@
 
 spring:
   elasticsearch:
-    uris: localhost:9200
+    uris: ${ELASTIC_URIS:localhost:9200}
     password: elastic
 
   main:
