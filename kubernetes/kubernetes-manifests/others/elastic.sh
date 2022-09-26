@@ -1,7 +1,6 @@
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm delete elasticsearch
 helm install elasticsearch \
-  -f values.yml \
   --set sysctlImage.enabled=true \
     --set data.persistence.size=16Gi \
     --set coordinating.service.type=LoadBalancer \
