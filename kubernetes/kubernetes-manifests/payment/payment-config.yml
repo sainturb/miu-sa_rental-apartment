@@ -5,6 +5,7 @@ metadata:
   labels:
     app: payment-service
 data:
+  KAFKA_SERVERS: kafka-0.kafka-headless.default.svc.cluster.local:9092,kafka-1.kafka-headless.default.svc.cluster.local:9092
   ACCOUNT_SERVICE: http://account-service:8081
   CREDIT_SERVICE: http://credit-service:8086
   BANK_SERVICE: http://bank-service:8087

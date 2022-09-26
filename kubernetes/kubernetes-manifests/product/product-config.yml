@@ -5,4 +5,5 @@ metadata:
   labels:
     app: product-service
 data:
+  KAFKA_SERVERS: kafka-0.kafka-headless.default.svc.cluster.local:9092,kafka-1.kafka-headless.default.svc.cluster.local:9092
   SPRING_DATASOURCE_URL: jdbc:postgresql://product-database:5432/postgres
