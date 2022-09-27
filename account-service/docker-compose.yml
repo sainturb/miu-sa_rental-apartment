@@ -1,6 +1,11 @@
 version: '3.0'
 
 services:
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
   service:
     container_name: service
     build:
@@ -20,6 +25,6 @@ services:
       - 5432:5432
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_DB: account
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

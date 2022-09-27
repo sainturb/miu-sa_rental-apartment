@@ -1,0 +1,26 @@
+### create account
+POST localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+### login
+POST localhost:8081/api/uaa/authenticate
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "password": "esaintor"
+}
+
+> {% client.global.set("token", response.body.access_token); %}
+
+### get by id
+GET localhost:8081/api/users/1
+Authorization: Bearer {{token}}

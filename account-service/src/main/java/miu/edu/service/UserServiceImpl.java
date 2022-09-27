@@ -1,17 +1,17 @@
 package miu.edu.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import miu.edu.model.Payment;
-import miu.edu.model.Role;
 import miu.edu.model.User;
 import miu.edu.repository.PaymentRepository;
-import miu.edu.repository.RoleRepository;
 import miu.edu.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private final PaymentRepository paymentRepository;
 
     private final ModelMapper mapper;
+    private final RedisService redisService;
     @Override
     public List<User> getAll() {
         return repository.findAll();
@@ -26,7 +27,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getById(Long id) {
-        return repository.findById(id);
+        if (redisService.isExist(id.toString())) {
+            return Optional.of(redisService.getValue(id.toString()));
+        }
+        log.info("Data from DB");
+        Optional<User> optionalUser = repository.findById(id);
+        optionalUser.ifPresent(user -> redisService.setValue(user.getId().toString(), user));
+        return optionalUser;
     }
 
     @Override
@@ -36,11 +43,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        return repository.save(user);
+        User saved = repository.save(user);
+        redisService.setValue(user.getId().toString(), saved);
+        return saved;
     }
 
     @Override
     public void delete(Long id) {
+        redisService.deleteByKey(id.toString());
         repository.deleteById(id);
     }
 

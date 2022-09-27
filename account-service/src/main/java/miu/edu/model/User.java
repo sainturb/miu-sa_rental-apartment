@@ -1,8 +1,6 @@
 package miu.edu.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,8 +11,6 @@ import java.util.stream.Collectors;
 @Entity
 @Data
 @Table(name = "users")
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
