@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableJpaAuditing
-@EnableElasticsearchRepositories(basePackages = "miu.edu.product.search")
-@EnableJpaRepositories(basePackages = "miu.edu.product.repositories")
+@EnableElasticsearchRepositories(basePackages = "miu.edu.search")
+@EnableJpaRepositories(basePackages = "miu.edu.repositories")
 public class ProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class, args);

@@ -5,4 +5,4 @@ metadata:
   labels:
     app: bank-service
 data:
-  KAFKA_SERVERS: kafka-0.kafka-headless.default.svc.cluster.local:9092,kafka-1.kafka-headless.default.svc.cluster.local:9092
+  KAFKA_SERVERS: kafka.default.svc.cluster.local:9092
