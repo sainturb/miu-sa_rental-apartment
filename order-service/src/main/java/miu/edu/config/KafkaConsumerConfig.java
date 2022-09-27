@@ -57,7 +57,7 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, OrderStatusDTO> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(orderStatusConsumerFactory());
-        factory.setCommonErrorHandler(new KafkaErrorHandler());
+//        factory.setCommonErrorHandler(new KafkaErrorHandler());
         return factory;
     }
 }

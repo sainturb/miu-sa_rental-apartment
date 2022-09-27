@@ -23,8 +23,8 @@ public class KafkaTopicConfig {
         return new KafkaAdmin(configs);
     }
 
-//    @Bean
-//    public NewTopic notificationEvents() {
-//        return new NewTopic("order.events", 1, (short) 1);
-//    }
+    @Bean
+    public NewTopic notificationEvents() {
+        return new NewTopic("order.events", 1, (short) 1);
+    }
 }

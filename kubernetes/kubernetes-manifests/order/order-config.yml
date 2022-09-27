@@ -7,5 +7,6 @@ metadata:
 data:
   KAFKA_SERVERS: kafka-0.kafka-headless.default.svc.cluster.local:9092,kafka-1.kafka-headless.default.svc.cluster.local:9092
   SPRING_DATASOURCE_URL: jdbc:postgresql://order-database:5432/postgres
+  ACCOUNT_SERVICE: http://account-service:8081
   PRODUCT_SERVICE: http://product-service:8082
   PAYMENT_SERVICE: http://payment-service:8085
