@@ -1,6 +1,7 @@
-package miu.edu;
+package miu.edu.service;
 
 import lombok.RequiredArgsConstructor;
+import miu.edu.dto.NotificationDTO;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;

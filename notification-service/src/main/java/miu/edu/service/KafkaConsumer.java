@@ -1,5 +1,6 @@
-package miu.edu;
+package miu.edu.service;
 
+import miu.edu.dto.NotificationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

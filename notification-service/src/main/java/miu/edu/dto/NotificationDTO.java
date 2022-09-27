@@ -1,4 +1,4 @@
-package miu.edu;
+package miu.edu.dto;
 
 import lombok.Data;
 
