@@ -1,0 +1,16 @@
+###
+POST http://localhost:8087/api/pay
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
+Content-Type: application/json
+
+{
+"methodInfo": {
+  "type": "bank",
+  "bankAccount": "1",
+  "routingNumber": "1",
+  "bankName": "name"
+},
+  "orderNumber": "111",
+  "totalAmount": 11100
+}
+
