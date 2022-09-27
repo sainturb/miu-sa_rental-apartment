@@ -32,6 +32,7 @@ public class RedisConfiguration {
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
 
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(host, port);
+        configuration.setPassword("redis");
 
         JedisClientConfiguration jedis = JedisClientConfiguration.builder().build();
 
