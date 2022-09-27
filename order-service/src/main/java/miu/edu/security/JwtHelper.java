@@ -11,11 +11,12 @@ public class JwtHelper {
     private final String secret = "top-secret";
     private final long expiration = 15 * 60 * 60 * 100;
     public String generateToken(String username, Map<String, Object> claims ) {
+        var expires = System.currentTimeMillis() + expiration;
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setClaims(claims)
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(expires))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

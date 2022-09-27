@@ -1,5 +1,7 @@
 package miu.edu.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.client.AccountClient;
@@ -28,15 +30,15 @@ public class KafkaConsumer {
     AccountClient accountClient;
     @Autowired
     private KafkaTemplate<String, NotificationDTO> kafkaTemplate;
-    @Bean
-    public RequestContextListener requestContextListener() {
-        return new RequestContextListener();
-    }
 
-    @KafkaListener(topics = "order.events", groupId = "group-1",
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @KafkaListener(
+            topics = "order.events",
+            groupId = "group-1",
             containerFactory = "orderStatusKafkaListenerContainerFactory")
     public void orderListener(OrderStatusDTO orderStatus) {
-        System.out.println("Received message: " + orderStatus);
         Optional<Order> optional = orderService.getByOrderNumber(orderStatus.getOrderNumber());
         optional.ifPresent(order -> {
             var prevStatus = order.getStatus();
@@ -48,17 +50,14 @@ public class KafkaConsumer {
     }
 
     public void sendNotification(String prevStatus, Order order) {
-        activityService.save(order, prevStatus);
         try {
-            log.info(accountClient.toString());
-            log.info(Boolean.valueOf(Objects.nonNull(accountClient)).toString());
             Map<String, String> body = accountClient.retrieveInfo(order.getUserId());
-            log.info(body.toString());
             NotificationDTO notification = new NotificationDTO();
             notification.setSubject(String.format("Order status updated %s", order.getOrderNumber()));
             notification.setText(String.format("Hello %s, \nYour order %s has updated. It changed to %s. \nExtra note: %s", body.get("fullname"), order.getOrderNumber(), order.getStatus(), order.getNote()));
             notification.setTo(body.get("email"));
             kafkaTemplate.send("notification.events", notification);
+            activityService.save(order, prevStatus);
         } catch (FeignException e) {
             e.printStackTrace();
         }

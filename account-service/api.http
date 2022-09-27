@@ -22,5 +22,5 @@ Content-Type: application/json
 > {% client.global.set("token", response.body.access_token); %}
 
 ### get by id
-GET localhost:8081/api/users/1
+GET localhost:8081/api/users/3
 Authorization: Bearer {{token}}

@@ -4,6 +4,8 @@ services:
   redis:
     container_name: redis
     image: redis
+    command: >
+      --requirepass redis
     ports:
       - 6379:6379
   service:

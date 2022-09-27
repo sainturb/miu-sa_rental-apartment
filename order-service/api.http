@@ -1,0 +1,19 @@
+### login
+POST localhost:8081/api/uaa/authenticate
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "password": "esaintor"
+}
+
+> {% client.global.set("token", response.body.access_token); %}
+
+### get by id
+PUT localhost:8083/api/orders/update-status/1234/new
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "note": "note"
+}

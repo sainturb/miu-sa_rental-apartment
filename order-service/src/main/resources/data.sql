@@ -1,0 +1,1 @@
+insert into orders (id, order_number, start_date, end_date, status, total_amount, user_id, note, product_id) values (1, '1234', '2022-09-10', '2022-09-12', 'initial', 384.1, 3, 'note', 1);

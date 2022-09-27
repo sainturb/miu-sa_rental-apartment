@@ -7,15 +7,20 @@ import miu.edu.security.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Component
 @Slf4j
 public class FeignInterceptor implements RequestInterceptor {
-
-    @Autowired
-    private HttpServletRequest httpServletRequest;
+//    @Autowired
+//    private HttpServletRequest httpServletRequest;
 
     @Autowired
     private JwtHelper jwtHelper;
@@ -26,9 +31,12 @@ public class FeignInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate template) {
         log.info("Intercepted the feign");
-        String accessToken = httpServletRequest.getHeader("Authorization");
+        if (Objects.nonNull(RequestContextHolder.getRequestAttributes())) {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            String accessToken = attributes.getRequest().getHeader("Authorization");
+            template.header("Authorization",accessToken);
+        }
         String serviceToken = jwtHelper.generateServiceToken(applicationContext.getId());
-        template.header("Authorization", accessToken);
         template.header("ServiceToken", serviceToken);
     }
 }

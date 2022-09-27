@@ -53,20 +53,20 @@ public class OrderController {
         return service.placeOrder(placeOrder, principal);
     }
 
-    @PutMapping("update-status/{orderNumber}/{status}")
-    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, String> body) {
-        Optional<Order> optional = service.getByOrderNumber(orderNumber);
-        optional.ifPresent(order -> {
-            var prevStatus = order.getStatus();
-            if (status.equals("failed")) {
-                order.setNote(body.get("note"));
-            }
-            order.setStatus(status);
-            order = service.save(order);
-            if (status.equals("paid")) {
-                rest.makeUnavailableBetween(order);
-            }
-            activity.save(order, prevStatus);
-        });
-    }
+//    @PutMapping("update-status/{orderNumber}/{status}")
+//    public void updateStatus(@PathVariable String orderNumber, @PathVariable String status, @RequestBody Map<String, String> body) {
+//        Optional<Order> optional = service.getByOrderNumber(orderNumber);
+//        optional.ifPresent(order -> {
+//            var prevStatus = order.getStatus();
+//            if (status.equals("failed")) {
+//                order.setNote(body.get("note"));
+//            }
+//            order.setStatus(status);
+//            order = service.save(order);
+//            if (status.equals("paid")) {
+//                rest.makeUnavailableBetween(order);
+//            }
+//            activity.save(order, prevStatus);
+//        });
+//    }
 }

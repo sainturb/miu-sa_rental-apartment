@@ -1,3 +1,383 @@
+GET http://localhost:8081/api/users/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T163311.200.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T163307.200.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T163306.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T163303.500.json
+
+###
+
+GET http://localhost:8081/api/users/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+###
+
+GET http://localhost:8081/api/users/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T163042.500.json
+
+###
+
+GET http://localhost:8081/api/users/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T163041.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162912.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162911.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162903.500.json
+
+###
+
+GET http://localhost:8081/api/users/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T162901.500.json
+
+###
+
+GET http://localhost:8081/api/users/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T162722.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162704.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162702.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162659.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162658.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162657.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T162654.500.json
+
+###
+
+PUT http://localhost:8083/api/orders/update-status/1234/new
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+Content-Type: application/json
+
+{
+  "note": "note"
+}
+
+###
+
+PUT http://localhost:8083/api/orders/update-status/1234/new
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T145709.400.json
+
+###
+
+POST http://localhost:8083/api/orders/update-status/1234/new
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T145702.405.json
+
+###
+
+POST http://localhost:8082/api/orders/update-status/1234/new
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+###
+
+POST http://localhost:8081/api/orders/update-status/1234/new
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T145649.404.json
+
+###
+
+POST http://localhost:8081/api/orders/update-status/1234/new
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6ImVzYWludG9yIiwicm9sZXMiOlsiVVNFUiJdLCJpZCI6MywiZnVsbG5hbWUiOiJzYWludHVyIGJhdGtodXUiLCJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSJ9.b2sqdCKCRoP0eRDJ2BgABQYyzQXPuS7YXRorX6jovGxtFO2VOTaUyBLv6W3MUQs5vUy1-q6QGajSeyaq_8kuzw
+
+<> 2022-09-27T145634.404.json
+
+###
+
+POST http://localhost:8081/api/uaa/authenticate
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145538.200.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145057.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145054.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145051.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145050.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145049.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145048.500.json
+
+###
+
+POST http://localhost:8081/api/uaa/register
+Content-Type: application/json
+
+{
+  "username": "esaintor",
+  "firstname": "saintur",
+  "lastname": "batkhuu",
+  "email": "esaintor@gmail.com",
+  "password": "esaintor"
+}
+
+<> 2022-09-27T145046.500.json
+
+###
+
 GET http://localhost:8081/api/users/1
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImVzYWludG9yQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZXNhaW50b3IiLCJyb2xlcyI6WyJVU0VSIl0sImlkIjozLCJmdWxsbmFtZSI6InNhaW50dXIgYmF0a2h1dSJ9.mnvX-s6j1PtELphO0ge04QwI490zzgKSkj_PYm9-5cFLTpkdhQ5BqzwjjDIbOFQVYxAIkTZfcIdJe9-qHWtMGg
 
@@ -204,419 +584,6 @@ Content-Type: application/json
 }
 
 <> 2022-09-26T221255.500.json
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-<> 2022-09-26T220953.500.json
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-<> 2022-09-26T220933.500.json
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-<> 2022-09-26T220245.500.json
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-<> 2022-09-26T220025.500.json
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-<> 2022-09-26T215905.500.json
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Beaerer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Beaerer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Beaerer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-###
-
-POST http://localhost:8087/api/pay
-Authorization: Beaerer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-###
-
-POST http://localhost:8086/api/pay
-Authorization: Beaerer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
-Content-Type: application/json
-
-{
-"methodInfo": {
-  "type": "bank",
-  "bankAccount": "1",
-  "routingNumber": "1",
-  "bankName": "name"
-},
-  "orderNumber": "111",
-  "totalAmount": 11100
-}
-
-###
-
-POST http://localhost:30081/api/uaa/authenticate
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "admin"
-}
-
-###
-
-GET http://localhost:30081/actuator/health
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "id": "1"
-          }
-        }
-      ]
-    }
-  }
-}
-
-<> 2022-09-24T213640.200.json
-
-###
-
-GET http://localhost:8082/api/products/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-<> 2022-09-24T213637.200.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "id": "1"
-          }
-        }
-      ]
-    }
-  }
-}
-
-<> 2022-09-24T213629.200.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "query_string": {
-      "query": "1"
-    }
-  }
-}
-
-<> 2022-09-24T213526.200.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "query_string": {
-      "query": "homeType: apartment & id: 1"
-    }
-  }
-}
-
-<> 2022-09-24T213504.200.json
-
-###
-
-GET http://localhost:8082/api/products/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-<> 2022-09-24T213437.200.json
-
-###
-
-POST http://localhost:8082/api/reviews/create/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-{
-  "message": "Message",
-  "rating": 1
-}
-
-<> 2022-09-24T213435.200.json
-
-###
-
-GET http://localhost:8082/api/products/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-<> 2022-09-24T213429.200.json
-
-###
-
-POST http://localhost:8082/api/reviews/create/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-{
-  "message": "Message",
-  "rating": 5
-}
-
-<> 2022-09-24T213425.200.json
-
-###
-
-GET http://localhost:8082/api/products/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-<> 2022-09-24T213412.200.json
-
-###
-
-POST http://localhost:8082/api/reviews/create/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-{
-  "message": "Message",
-  "rating": 3.6
-}
-
-<> 2022-09-24T213409.200.json
-
-###
-
-GET http://localhost:8082/api/products/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-<> 2022-09-24T213402.200.json
-
-###
-
-GET http://localhost:8082/api/_search?homeType=apartment&totalBedrooms=3,5&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
-Content-Type: application/json
-
-<> 2022-09-24T213327.200.json
-
-###
-
-PUT http://localhost:8082/api/batch/start
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-
-<> 2022-09-24T213319.200.json
-
-###
-
-POST http://localhost:8082/api/reviews/create/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
-Content-Type: application/json
-
-{
-  "message": "Message",
-  "rating": 3.6
-}
-
-<> 2022-09-24T213254.200.json
-
-###
-
-POST http://localhost:8082/api/reviews/create/1
-Content-Type: application/json
-
-{
-  "message": "Message",
-  "rating": 3.6
-}
-
-###
-
-POST http://localhost:8082/api/reviews/1
-Content-Type: application/json
-
-{
-  "message": "Message",
-  "rating": 3.6
-}
-
-###
-
-GET http://localhost:8082/api/_search?homeType=apartment&totalBedrooms=3,5&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
-Content-Type: application/json
-
-<> 2022-09-24T160454.200.json
-
-###
-
-GET http://localhost:8082/api/_search?homeType=apartment&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
-Content-Type: application/json
-
-<> 2022-09-24T160349.200.json
-
-###
-
-GET http://localhost:8082/api/_search?homeType=apartment&availableFrom=2022-09-22&availableUntil=2022-10-02&hasTV=0&page=0&size=10
-Content-Type: application/json
-
-<> 2022-09-24T134136.200.json
 
 ###
 
