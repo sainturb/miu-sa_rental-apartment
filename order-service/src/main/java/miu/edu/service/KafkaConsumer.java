@@ -18,7 +18,7 @@ public class KafkaConsumer {
     ActivityService activityService;
 
     @KafkaListener(topics = "order.events", groupId = "group-1",
-            containerFactory = "orderKafkaListenerContainerFactory")
+            containerFactory = "orderStatusKafkaListenerContainerFactory")
     @SendNotification(type = "order")
     public void orderListener(OrderStatusDTO orderStatus) {
         System.out.println("Received message: " + orderStatus);

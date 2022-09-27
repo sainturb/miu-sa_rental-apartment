@@ -30,6 +30,57 @@ Content-Type: application/json
   "totalAmount": 11100
 }
 
+###
+
+POST http://localhost:8087/api/pay
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
+Content-Type: application/json
+
+{
+"methodInfo": {
+  "type": "bank",
+  "bankAccount": "1",
+  "routingNumber": "1",
+  "bankName": "name"
+},
+  "orderNumber": "111",
+  "totalAmount": 11100
+}
+
+###
+
+POST http://localhost:8087/api/pay
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
+Content-Type: application/json
+
+{
+"methodInfo": {
+  "type": "bank",
+  "bankAccount": "1",
+  "routingNumber": "1",
+  "bankName": "name"
+},
+  "orderNumber": "111",
+  "totalAmount": 11100
+}
+
+###
+
+POST http://localhost:8087/api/pay
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmdWxsbmFtZSI6InVzZXIgdXNlciIsImlkIjoxLCJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidXNlciIsImVtYWlsIjoidXNlckBtaXUuZWR1In0.d3eS8uGO33_Qeqg4FGyIJikFeFG8rJ7NQXR0cN1j6o3tN1Mf4M7O3mOzhN1egIQNTDX1BrMvJmRNNh1Xi5jT9A
+Content-Type: application/json
+
+{
+"methodInfo": {
+  "type": "bank",
+  "bankAccount": "1",
+  "routingNumber": "1",
+  "bankName": "name"
+},
+  "orderNumber": "111",
+  "totalAmount": 11100
+}
+
 <> 2022-09-26T221255.500.json
 
 ###
@@ -772,120 +823,6 @@ Content-Type: application/json
 }
 
 <> 2022-09-24T125713.500.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "homeType": "apartment",
-          }
-        },
-        {
-          "term": {
-            "totalOccupancy": 4
-          }
-        },
-        {
-          "range": {
-            "availableUntil": {
-              "lte": "2022-10-01"
-            }
-          }
-        },
-        {
-          "range": {
-            "availableFrom": {
-              "gte": "2022-09-19"
-            }
-          }
-        }
-      ]
-    }
-  },
-  "size": 10
-}
-
-<> 2022-09-24T125710.500.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "homeType": "apartment",
-            "totalOccupancy": 4
-          }
-        },
-        {
-          "range": {
-            "availableUntil": {
-              "lte": "2022-10-01"
-            }
-          }
-        },
-        {
-          "range": {
-            "availableFrom": {
-              "gte": "2022-09-19"
-            }
-          }
-        }
-      ]
-    }
-  },
-  "size": 10
-}
-
-<> 2022-09-24T125649.400.json
-
-###
-
-GET http://localhost:9200/product/_search
-Content-Type: application/json
-
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "homeType": "apartment"
-          }
-        },
-        {
-          "range": {
-            "availableUntil": {
-              "lte": "2022-10-01"
-            }
-          }
-        },
-        {
-          "range": {
-            "availableFrom": {
-              "gte": "2022-09-19"
-            }
-          }
-        }
-      ]
-    }
-  },
-  "size": 10
-}
-
-<> 2022-09-24T125637.200.json
 
 ###
 

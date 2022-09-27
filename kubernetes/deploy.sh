@@ -11,6 +11,8 @@ cd ../order-db
 sh run.sh
 cd ../order
 sh run.sh
+cd ../notification
+sh run.sh
 cd ../payment
 sh run.sh
 cd ../paypal

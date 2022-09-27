@@ -10,8 +10,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.support.converter.RecordMessageConverter;
-import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
@@ -44,7 +42,7 @@ public class KafkaConsumerConfig {
 
 
     @Bean
-    public ConsumerFactory<String, OrderStatusDTO> orderConsumerFactory() {
+    public ConsumerFactory<String, OrderStatusDTO> orderStatusConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new DefaultKafkaConsumerFactory<>(
@@ -55,10 +53,11 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, OrderStatusDTO>
-    orderKafkaListenerContainerFactory() {
+    orderStatusKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, OrderStatusDTO> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(orderConsumerFactory());
+        factory.setConsumerFactory(orderStatusConsumerFactory());
+        factory.setCommonErrorHandler(new KafkaErrorHandler());
         return factory;
     }
 }
