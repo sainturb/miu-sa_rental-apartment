@@ -2,8 +2,10 @@ package miu.edu.service;
 
 import lombok.RequiredArgsConstructor;
 import miu.edu.model.Payment;
+import miu.edu.model.Role;
 import miu.edu.model.User;
 import miu.edu.repository.PaymentRepository;
+import miu.edu.repository.RoleRepository;
 import miu.edu.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final PaymentRepository paymentRepository;
+
     private final ModelMapper mapper;
     @Override
     public List<User> getAll() {
