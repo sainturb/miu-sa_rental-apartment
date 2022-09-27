@@ -12,6 +12,7 @@ public interface UserService {
     Optional<User> getById(Long id);
     Optional<User> getByUsername(String username);
     User save(User user);
+    Optional<User> updateInfo(User user);
     void delete(Long id);
     void updatePaymentMethod(Long id, Payment method);
     Payment getMethod(Long userId);

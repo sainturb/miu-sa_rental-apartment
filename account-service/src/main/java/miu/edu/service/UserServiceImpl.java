@@ -7,7 +7,9 @@ import miu.edu.model.User;
 import miu.edu.repository.PaymentRepository;
 import miu.edu.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -83,5 +85,15 @@ public class UserServiceImpl implements UserService {
             map.put("username", user.getUsername());
         });
         return map;
+    }
+
+    public Optional<User> updateInfo(User user) {
+        Optional<User> optional = getById(user.getId());
+        return optional.map(updatingUser -> {
+            updatingUser.setEmail(user.getEmail());
+            updatingUser.setFirstname(user.getFirstname());
+            updatingUser.setLastname(user.getLastname());
+            return save(updatingUser);
+        });
     }
 }
