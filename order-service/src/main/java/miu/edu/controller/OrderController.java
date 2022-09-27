@@ -49,6 +49,7 @@ public class OrderController {
         if (!activity.isAvailable()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product stock is not available at the moment");
         }
+        placeOrder.getItem().setPrice(activity.getPrice());
         return service.placeOrder(placeOrder, principal);
     }
 

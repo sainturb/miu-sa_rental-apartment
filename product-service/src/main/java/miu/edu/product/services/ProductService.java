@@ -60,8 +60,8 @@ public class ProductService {
     public Map<String, Object> getAvailability(Long id, BetweenDateDTO between) {
         Optional<Product> optional = repository.findById(id);
         if (optional.isPresent()) {
-            var available = optional.get().getAvailableFrom().isBefore(between.getStartDate()) && optional.get().getAvailableUntil().isAfter(between.getEndDate());
-            return Map.of("available", available, "from", optional.get().getAvailableFrom(), "until", optional.get().getAvailableUntil());
+            var available = !optional.get().getAvailableFrom().isAfter(between.getStartDate()) && !optional.get().getAvailableUntil().isBefore(between.getEndDate());
+            return Map.of("available", available, "from", optional.get().getAvailableFrom(), "until", optional.get().getAvailableUntil(), "price", optional.get().getPrice());
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
     }

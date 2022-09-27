@@ -45,7 +45,6 @@ public class OrderService {
     }
 
     public Order placeOrder(PlaceOrderDTO placeOrder, Principal principal) {
-
         Order order = new Order();
         order.setStartDate(placeOrder.getItem().getStartDate());
         order.setEndDate(placeOrder.getItem().getEndDate());
