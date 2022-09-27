@@ -1,5 +1,6 @@
 package miu.edu.payment.services;
 
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import miu.edu.payment.client.AccountClient;
 import miu.edu.payment.client.BankClient;
@@ -35,13 +36,25 @@ public class RestService {
     public void decidePayment(PaymentRequestDTO paymentRequest) {
         switch (paymentRequest.getMethodInfo().getType()) {
             case "paypal":
-                paypalClient.checkout(paymentRequest);
+                try {
+                    paypalClient.checkout(paymentRequest);
+                } catch (FeignException e) {
+                    failedPayment(paymentRequest.getOrderNumber(), e.getMessage());
+                }
                 break;
             case "bank":
-                bankClient.checkout(paymentRequest);
+                try {
+                    bankClient.checkout(paymentRequest);
+                } catch (FeignException e) {
+                    failedPayment(paymentRequest.getOrderNumber(), e.getMessage());
+                }
                 break;
             default:
-                creditClient.checkout(paymentRequest);
+                try {
+                    creditClient.checkout(paymentRequest);
+                } catch (FeignException e) {
+                    failedPayment(paymentRequest.getOrderNumber(), e.getMessage());
+                }
                 break;
         }
     }
