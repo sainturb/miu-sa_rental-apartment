@@ -41,6 +41,7 @@
 🌐 /api/uaa/authenticate [POST] {username, password}
 🌐 /api/uaa/register [POST] {username, email, firstname, lastname, password}
 🛡 /api/users [CRUD] (only user with role ADMIN can access)
+🛡 /api/update-info [POST]
 🛡 /api/retrieve-info [GET]
 🛡 /api/payment-method [POST] create or update payment mehtod
 🛡 /api/payment-method [GET] get user's payment mehtod
@@ -67,7 +68,6 @@
 🛡 /api/orders/my/{orderNumber} [GET] user see their own order by order number
 🛡 /api/orders/activities/{orderNumber} [GET] order activities by order number
 🛡 /api/orders/place-order [POST] to place order
-🗑️ /api/orders/update-status/{orderNumber}/{status} [PUT] change status (deprecated) 
 ```
 
 ### Payment service : 8085
