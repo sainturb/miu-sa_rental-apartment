@@ -5,4 +5,5 @@ metadata:
   labels:
     app: account-service
 data:
+  REDIS_HOST: redis-master.default.svc.cluster.local
   SPRING_DATASOURCE_URL: jdbc:postgresql://account-database:5432/postgres
