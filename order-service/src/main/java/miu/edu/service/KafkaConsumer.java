@@ -1,38 +1,30 @@
 package miu.edu.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import miu.edu.client.AccountClient;
+import miu.edu.client.ProductClient;
+import miu.edu.dto.BetweenDateDTO;
 import miu.edu.dto.NotificationDTO;
 import miu.edu.dto.OrderStatusDTO;
 import miu.edu.model.Order;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextListener;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class KafkaConsumer {
-    @Autowired
-    OrderService orderService;
-    @Autowired
-    ActivityService activityService;
-    @Autowired
-    AccountClient accountClient;
-    @Autowired
-    private KafkaTemplate<String, NotificationDTO> kafkaTemplate;
-
-    @Autowired
-    ObjectMapper objectMapper;
+    private final OrderService orderService;
+    private final ActivityService activityService;
+    private final AccountClient accountClient;
+    private final ProductClient productClient;
+    private final KafkaTemplate<String, NotificationDTO> kafkaTemplate;
 
     @KafkaListener(
             topics = "order.events",
@@ -45,6 +37,16 @@ public class KafkaConsumer {
             order.setStatus(orderStatus.getStatus());
             order.setNote(orderStatus.getMessage());
             order = orderService.save(order);
+            if (order.getStatus().equals("paid")) {
+                BetweenDateDTO between = new BetweenDateDTO();
+                between.setStartDate(order.getStartDate());
+                between.setEndDate(order.getEndDate());
+                try {
+                    productClient.makeUnavailableBetween(order.getProductId(), between);
+                } catch (FeignException e) {
+                    e.printStackTrace();
+                }
+            }
             sendNotification(prevStatus, order);
         });
     }

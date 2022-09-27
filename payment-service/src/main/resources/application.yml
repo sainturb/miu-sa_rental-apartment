@@ -16,11 +16,6 @@ spring:
     producer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: "miu.edu.payment.dto"
 
 server:
   port: 8085

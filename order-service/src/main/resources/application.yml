@@ -47,7 +47,7 @@ account-service:
     listOfServers: ${ACCOUNT_SERVICE:http://localhost:8081}
 product-service:
   ribbon:
-    listOfServers: ${PRODUCT_SERVICE:http://localhost:8084}
+    listOfServers: ${PRODUCT_SERVICE:http://localhost:8082}
 payment-service:
   ribbon:
     listOfServers: ${PAYMENT_SERVICE:http://localhost:8085}
