@@ -1,137 +1,90 @@
-Instructions
-Assignment Instructions
+### Back of envelope estimates :
 
-Goals:
+- Your system should be able to support a workload of 100M+ users, we’ll start with one continent but we should be able to web scale eventually.
 
-    Given a problem you should be able to model a set of Microservices
+- Expected storage requirement about 50TB, it increases by a rate of 5TB every 12 month
 
-    Apply Service discovery , Configuration and secret management
+- Uniform request load (1K/sec) through the year, but it peaks 150% at major holidays, you should be ready to scale up/down accordingly
 
-    Deploy and scale your solution on a cluster
 
-Problem statement:
+### Functional & non-functional requirements:
 
-We’ve an e-store business, which allows users to view our items , create an account if they want to buy. Place orders and pay for them.
+- ✅ Your system should have a low latency/near real time notification service (sending emails).
 
-We’ve the following concepts:
+- ✅ We should be able to add new services in the future. For now, we think of analytical services that needs to read all prior system state (preferably as events), with the ability to index your content into Elastic search to do text search later. In all cases, Your existing services shouldn’t be modified to support any new future services, they should just publish suitable events.
 
-    Account :
+- ✅ Your system should show resiliency. Ideally, it shouldn’t have any single point of failure. We might try to kill a node randomly, your system should be able to perform.
 
-        first name , last name , email
+- ✅ Your system should be easily deployable to the cloud , we don’t have on premise data centers
 
-        Shipping Address
+- ⚠️ That includes the ability to run over different availability zones for disaster recovery reasons if we need to
 
-        A list of Payment method (PayPal |CreditCard| BankAccount)
+- ✅ It must provide some sort of logging, at least for major errors
 
-        A preferred payment method
+- ⚠️ It’s nice to have the ability to show distributed tracing or monitoring dashboard. It helps with latency analysis, and assists the operation team during troubleshooting efforts.
 
-        Each payment method has its attributes (e.g. CC we need number, ccv, ..)
+- ✅ At Least one service, should provide its queries behind a caching layer to improve response time
 
-    Product:
+- ✅ Provide security for your services both client facing and service-to-service communication
 
-        Name, vendor, category (e.g. electronics|Apparel|Food,..)
+- ✅ Well documented, specially its major components and rational behind your architecture
 
-        We need to keep track of available Units. This is to prevent users from placing orders on out of stock items
 
-            Whenever an item count falls below (some configurable threshold e.g. 50 ) -> we notify Stock back end so they can add more units to our stock
+### Tasks:
 
-    Order
+- ✅ (Apartment rental) Pick a domain of interest with your team 
 
-        User can place orders , each order can have one or more products
+- ✅ As a team, provide a diagram for your architecture where you show the major services and their communication patterns.
 
-            User can specify more than one unit of an item (e.g. 3 T-shirts)
+- ✅ Show how your system will be deployed/scaled later in the cloud
 
-        An Order can use the preferred shipping info of the account, or can be different if the user wants to
+- ✅ Each team member should be responsible for at least one microservice (e.g. team of five must have 5+ services)
 
-        Similarly the order must have a payment method , which could be the preferred type or different if the user wants to
+- ✅ Unless it’s a complete backend utility service, each service must provide an API. Show the style you used and your reasons for your decision .
 
-            Only one payment method is allowed per order
+- ✅ if it’s client facing , you must use JWT token for authentication/authorization.
 
-Overall businesses flow:
+- ✅ Dockerize your solution and deploy to Kubernetes or an equivalent container orchestration platform.
 
-Any user can see our catalog , but to place and order a user has to make an account
+- ✅ You must deploy to a multi-node cluster, preferably on a cloud provider ( Minikube is fine for dev only but won't be accepted as final delivery )
 
-User can login and then place an order
+- ✅ You must handle failure scenarios (e.g. a service call failure or a service being slow). Explain your approach and the tools you used.
 
-The order goes to payment
+- ✅ Feel free to implement using any language or framework you’re familiar with. Java/Spring cloud is a good place to start.
 
-if payment was accepted, the order is sent to shipping department
+- ⚠️ UI is completely optional .. bonus points will be awarded if you have one.
 
-A: OrderService
+- ⚠️ Be prepared to present your work to other teams and answer their questions if any.
 
-Create Order -> talk to payment service. Payment service doesn't know upfront who to talk to, it's determined by the payment type from the request
 
-B: PaymentService
+### Hints:
 
-PaymentType is variable
+- ✅ Kafka is a good place to publish your events to. Services don’t have to talk directly with each other, specially if we’re planning to have too many of them.
 
-Based on payment type locate some Transaction Service
+- ✅ Kubernetes provides services like services discovery, configmap, secrets. Use them instead of DYI approach, unless you have strong reasons not to.
 
-This mapping is dynamic and should be fetched via config management
+- ⚠️ With 5TB+ of data , Mysql may not be the best persistence DB to go forward in the long term. Thinking NoSQL might help.
 
-Payment service talks any transaction Service via an API token
+- ✅ For Caching, assume simplest case, not too many modifications to back-end. Redis is a good place to start.
 
-the token is secured and should be retrieved via Secret management
+- ⚠️ Given the available time sprint, prioritize your tasks. Instead of implementing a complete set of complex businesses scenarios/rules, simplify your process. Try to avoid Sagas. Show how the rest of the system components/services might fit in your architecture if needed.
 
-Tasks:
+- ✅ Use HELM charts to install components to K8s cluster. Don’t install them manually.
 
-    Architecture a micro-services based solution to this problem.
 
-        Come up with a valid set of micro-services.
+### Going the Extra mile!: <<optional with bonus points>>
 
-        Define their APIs and their communication pattern
+- Providing User Interface (Web or mobile)
 
-        Decide which discovery/Config/Secret management approach you’ll use
+- Using Service Mesh like Istio to establish dashboard and distributed tracing with Zipkin
 
-    Hints:
+- Creating CI/CD pipeline to deploy directly to the cloud when developers merge code to the release branch.
 
-        At a minimum you need Authentication, Account tracking, Order tracking , Payment , several Transactional services one for each payment type , stock tracking , and shipping services.
 
-        For simplicity, use Restful style , but you’re free to change
+### Deliverable:
 
-        For simplicity, use Spring Boot,cloud framework , but feel free to change
+- All your source code and deployment scripts (no github links or the like please)
 
-        For simplicity use MySQL for your databases , change if you want
+- PDF report showing your architecture with a brief discussion of your choices.
 
-        Transaction service accepts just a set of keys/values
-
-    All you services must run in containers ( including your data bases )
-
-    All you services must run more than 1 instance (2 minimum) for scaling
-
-    No hard coded IPs ever in your system, use service discovery
-
-    Between Order service and Payment service use Discovery
-
-        Between Payment and Transaction service , use the request attributes
-
-            This allows us to add more payment methods In the future
-
-        Use config management to locate service name from payment type
-
-        Use discovery to talk to transaction service
-
-    Run your stack on Kubernetes. For this project using Minikube is acceptable, but later you might need a multi-node cluster.
-
-Deliverable:
-
-    Your project source code for all services
-
-    UI is NOT required, sample Restful requests is enough
-
-    README.md file
-
-        Explain your design decisions
-
-        Explain how to run your system (Provide scripts to deploy your services to Kubernetes whenever possible)
-
-        List the names of your team members
-
-========
-
-Grading:
-1- documentation on how to deploy/use your system (Demo short video link is accepted)
-3: deploy to k8s
-2:implement valid scenario (login→order->payment->transaction->shipping)
-2: implement service discovery , config based payment routing and secret management
-2: JWT for client facing , and service keys for inner service communication
+- A working solution running on some cloud, or a multi-node cluster
