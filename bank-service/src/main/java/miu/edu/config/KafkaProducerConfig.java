@@ -32,6 +32,10 @@ public class KafkaProducerConfig {
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
+        configProps.put(
+                ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG,
+                60000
+        );
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 

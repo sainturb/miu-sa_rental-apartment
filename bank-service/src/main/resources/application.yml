@@ -12,6 +12,7 @@ spring:
     producer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      a
 
 server:
   port: 8087

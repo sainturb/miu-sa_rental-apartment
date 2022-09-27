@@ -2,14 +2,14 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm delete kafka
 helm delete zookeeper
 helm install zookeeper bitnami/zookeeper \
-  --set replicaCount=1 \
+  --set replicaCount=2 \
   --set auth.enabled=false \
   --set allowAnonymousLogin=true
 
 
 helm install kafka bitnami/kafka \
   --set zookeeper.enabled=false \
-  --set replicaCount=1 \
+  --set replicaCount=2 \
   --set externalZookeeper.servers=zookeeper.default.svc.cluster.local
 
 
