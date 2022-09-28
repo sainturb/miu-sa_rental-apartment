@@ -24,4 +24,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag sainturb/account-service:latest
     - name: Push the Docker image
-        run: docker push sainturb/account-service:latest
+      run: docker push sainturb/account-service:latest
