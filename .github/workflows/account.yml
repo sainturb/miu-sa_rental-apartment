@@ -65,7 +65,7 @@ jobs:
       with:
         token_format: 'access_token'
         workload_identity_provider: 'projects/350136741191/locations/global/workloadIdentityPools/deploy-pool/providers/auth-provider'
-        service_account: '350136741191-compute@developer.gserviceaccount.com'
+        service_account: 'deployment@spartan-archive-363215.iam.gserviceaccount.com'
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
       with:
