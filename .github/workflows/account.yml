@@ -73,5 +73,5 @@ jobs:
         location: ${{ env.GKE_ZONE }}
     - name: Deploy
       run: |-
-         cd amazon/kubernetes/kubernetes-manifests/account && sh run.sh
+         pwd
      
