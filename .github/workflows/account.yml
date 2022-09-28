@@ -80,6 +80,9 @@ jobs:
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
       
+    - name: 'Connect to Shell'
+      run: 'gcloud cloud-shell ssh'
+      
     - name: Deploy
       run: |-
          pwd
