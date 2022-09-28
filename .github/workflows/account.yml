@@ -17,6 +17,7 @@ jobs:
     - name: Build with Maven
       run: cd account-service && mvn package -DskipTests=true
   dockerize:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Login to Docker Hub
@@ -27,6 +28,7 @@ jobs:
     - name: Build the Docker image
       run: cd account-service && docker build . --file Dockerfile --tag sainturb/account-service:latest
   publish:
+    needs: dockerize
     runs-on: ubuntu-latest
     steps:
     - name: Push the Docker image
