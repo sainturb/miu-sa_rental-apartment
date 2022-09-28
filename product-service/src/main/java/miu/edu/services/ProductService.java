@@ -65,7 +65,7 @@ public class ProductService {
         productOptional.ifPresent(product -> {
             product.setAvailableFrom(between.getEndDate().plusDays(1));
             var saved = save(product);
-            if (DAYS.between(saved.getAvailableUntil(), saved.getAvailableFrom()) < 10) {
+            if (DAYS.between(saved.getAvailableFrom(), saved.getAvailableUntil()) < 10) {
                 sendWarningNotification(saved);
             }
             sendOrderedNotification(saved, between.getStartDate(), between.getEndDate());

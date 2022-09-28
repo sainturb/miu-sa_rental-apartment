@@ -31,6 +31,8 @@ public class ServiceFilter extends OncePerRequestFilter {
             final String serviceToken = request.getHeader("ServiceToken");
             if (serviceToken != null) {
                 validated = jwtHelper.validateServiceToken("payment-service", serviceToken);
+            } else {
+                validated = false;
             }
         }
         if (validated)
