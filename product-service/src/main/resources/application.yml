@@ -1,5 +1,14 @@
-
 spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    consumer:
+      group-id: group-1
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   elasticsearch:
     uris: ${ELASTIC_URIS:localhost:9200}
     password: elastic
@@ -39,3 +48,7 @@ server:
   port: 8082
   error:
     include-message: always
+
+account-service:
+  ribbon:
+    listOfServers: ${ACCOUNT_SERVICE:http://localhost:8081}

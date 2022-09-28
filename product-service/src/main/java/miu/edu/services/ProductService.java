@@ -1,6 +1,10 @@
 package miu.edu.services;
 
+import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import miu.edu.client.AccountClient;
+import miu.edu.dto.NotificationDTO;
 import miu.edu.models.BetweenDateDTO;
 import miu.edu.models.Product;
 import miu.edu.models.Review;
@@ -8,23 +12,31 @@ import miu.edu.repositories.ProductRepository;
 import miu.edu.search.ProductSearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @Transactional
 @Slf4j
+@RequiredArgsConstructor
 public class ProductService {
-    @Autowired
-    private ProductRepository repository;
-    @Autowired
-    private ProductSearchRepository searchRepository;
+    private final ProductRepository repository;
+    private final ProductSearchRepository searchRepository;
+
+    private final KafkaTemplate<String, NotificationDTO> kafkaTemplate;
+
+    private final AccountClient accountClient;
 
     public List<Product> getAll() {
         return repository.findAll();
@@ -52,15 +64,55 @@ public class ProductService {
         Optional<Product> productOptional = repository.findById(id);
         productOptional.ifPresent(product -> {
             product.setAvailableFrom(between.getEndDate().plusDays(1));
-            save(product);
+            var saved = save(product);
+            if (DAYS.between(product.getAvailableUntil(), product.getAvailableFrom()) < 10) {
+                sendWarningNotification(product);
+            }
+            sendOrderedNotification(product, between.getStartDate(), between.getEndDate());
             log.info("{} between these day it will be available: from {} - until {}", product.getAddress(), product.getAvailableFrom(), product.getAvailableUntil());
         });
+    }
+
+    private void sendOrderedNotification(Product product, LocalDate start, LocalDate end) {
+        try {
+            Map<String, String> info = accountClient.retrieveInfo(product.getOwnerId());
+            NotificationDTO notification = new NotificationDTO();
+            notification.setSubject("Product ordered from your rental");
+            notification.setText(String.format("%s where located %s is reserved by user during %s - %s",
+                    product.getHomeType(),
+                    product.getAddress(),
+                    start,
+                    end
+            ));
+            notification.setTo(Objects.nonNull(info.get("email")) ? info.get("email") : "empty");
+            kafkaTemplate.send("notification.events", notification);
+        } catch (FeignException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendWarningNotification(Product product) {
+       try {
+           Map<String, String> info = accountClient.retrieveInfo(product.getOwnerId());
+           NotificationDTO notification = new NotificationDTO();
+           notification.setSubject("Warning availability");
+           notification.setText(String.format("%s where located %s is only available for %s days. \nTake action if you want to extend the periods.",
+                   product.getHomeType(),
+                   product.getAddress(),
+                   DAYS.between(product.getAvailableUntil(), product.getAvailableFrom())
+           ));
+           notification.setTo(Objects.nonNull(info.get("email")) ? info.get("email") : "empty");
+           kafkaTemplate.send("notification.events", notification);
+       } catch (FeignException e) {
+           e.printStackTrace();
+       }
     }
 
     public Map<String, Object> getAvailability(Long id, BetweenDateDTO between) {
         Optional<Product> optional = repository.findById(id);
         if (optional.isPresent()) {
-            var available = !optional.get().getAvailableFrom().isAfter(between.getStartDate()) && !optional.get().getAvailableUntil().isBefore(between.getEndDate());
+            var available = !optional.get().getAvailableFrom().isAfter(between.getStartDate()) &&
+                    !optional.get().getAvailableUntil().isBefore(between.getEndDate());
             return Map.of("available", available, "from", optional.get().getAvailableFrom(), "until", optional.get().getAvailableUntil(), "price", optional.get().getPrice());
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
