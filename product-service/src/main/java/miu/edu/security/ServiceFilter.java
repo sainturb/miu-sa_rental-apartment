@@ -26,11 +26,13 @@ public class ServiceFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         boolean validated = true;
-        if (request.getRequestURI().contains("/reduce-stocks/")||
-            request.getRequestURI().contains("/availability/")) {
+        if (request.getRequestURI().contains("/make-unavailable-during")||
+            request.getRequestURI().contains("/availability")) {
             final String serviceToken = request.getHeader("ServiceToken");
             if (serviceToken != null) {
                 validated = jwtHelper.validateServiceToken("order-service", serviceToken);
+            } else {
+                validated = false;
             }
         }
         if (validated)

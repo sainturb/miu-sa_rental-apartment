@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/api/products/{id:\\d+}/make-unavailable-during").permitAll()
                 .antMatchers("/api/search/**").permitAll()
                 .antMatchers("/api/_search/**").permitAll()
                 .antMatchers("/actuator/health/**").permitAll()

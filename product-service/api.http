@@ -107,3 +107,7 @@ Content-Type: application/json
     }
   }
 }
+
+### Batch start process
+PUT http://localhost:8082/api/products/1/availability
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkbWluQG1pdS5lZHUiLCJmdWxsbmFtZSI6ImFkbWluIGFkbWluIiwiaWQiOjIsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYWRtaW4ifQ.smvisH5PDc1TcyYBwUutfDBlg44PpEGzKDshFa0xpJmZnLljheB2yBkbfGCsRYp_BMWejOVccmPcOcKAPXQkRg
