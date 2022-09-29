@@ -2,12 +2,12 @@ name: Account Service
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GAR_LOCATION: us-central1
-  GKE_CLUSTER: cluster-1
-  GKE_ZONE: us-central1-c
-  DEPLOYMENT_NAME: gke-account-service
-  REPOSITORY: samples
-  IMAGE: static-site
+#   GAR_LOCATION: us-central1
+#   GKE_CLUSTER: cluster-1
+#   GKE_ZONE: us-central1-c
+#   DEPLOYMENT_NAME: gke-account-service
+#   REPOSITORY: samples
+#   IMAGE: static-site
 
 on:
   workflow_dispatch:
@@ -52,9 +52,6 @@ jobs:
   deploy:
     needs: dockerize
     runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
 
     steps:
     - name: Checkout
@@ -74,17 +71,20 @@ jobs:
 #         cluster_name: ${{ env.GKE_CLUSTER }}
 #         location: ${{ env.GKE_ZONE }}
         
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v0'
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    - name: Use gcloud CLI
+      run: gcloud info
       
-    - name: 'Set auth'
-      run: 'gcloud auth activate-service-account 350136741191-compute@developer.gserviceaccount.com --key-file=key.json'
+    - name: Set Auth
+      run: gcloud auth activate-service-account ${{ secrets.GKE_ACCOUNT }} --key-file=key.json
       
-    - name: 'Connect to Shell'
-      run: 'gcloud cloud-shell ssh'
+    - name: Set Project ID
+      run: gcloud config set project ${{ env.PROJECT_ID }}
+      
+    - name: Connect to Shell
+      run: gcloud cloud-shell ssh
       
     - name: Deploy
       run: |-
