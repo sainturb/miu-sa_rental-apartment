@@ -60,25 +60,28 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        token_format: 'access_token'
-        workload_identity_provider: 'projects/350136741191/locations/global/workloadIdentityPools/deploy-pool/providers/auth-provider'
-        service_account: 'deployment@spartan-archive-363215.iam.gserviceaccount.com'
+#     - id: 'auth'
+#       name: 'Authenticate to Google Cloud'
+#       uses: 'google-github-actions/auth@v0'
+#       with:
+#         token_format: 'access_token'
+#         workload_identity_provider: 'projects/350136741191/locations/global/workloadIdentityPools/deploy-pool/providers/auth-provider'
+#         service_account: 'deployment@spartan-archive-363215.iam.gserviceaccount.com'
         
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v0
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
+#     - name: Set up GKE credentials
+#       uses: google-github-actions/get-gke-credentials@v0
+#       with:
+#         cluster_name: ${{ env.GKE_CLUSTER }}
+#         location: ${{ env.GKE_ZONE }}
         
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
 
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
+      
+    - name: 'Set auth'
+      run: 'gcloud auth activate-service-account 350136741191-compute@developer.gserviceaccount.com --key-file=key.json'
       
     - name: 'Connect to Shell'
       run: 'gcloud cloud-shell ssh'
