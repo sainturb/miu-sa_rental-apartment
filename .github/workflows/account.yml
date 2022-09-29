@@ -1,7 +1,13 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
 name: Account Service
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GAR_LOCATION: us-central1
+  GKE_CLUSTER: cluster-1
+  GKE_ZONE: us-central1-c
+  DEPLOYMENT_NAME: gke-account-service
+  REPOSITORY: samples
+  IMAGE: static-site
 
 on:
   workflow_dispatch:
@@ -19,12 +25,68 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: cd account-service && mvn package -DskipTests=true
+    - name: Temporarily save jar artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: jar-artifact
+        path: ${{ github.workspace }}/account-service/target/*.jar
+        retention-days: 1
+  dockerize:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/download-artifact@v1
+      with:
+        name: jar-artifact
+        path: account-service/target/
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sainturb/account-service:latest
+      run: cd account-service && docker build . --file Dockerfile --tag sainturb/account-service:latest
     - name: Push the Docker image
-        run: docker push sainturb/account-service:latest
+      run: docker push sainturb/account-service:latest
+  deploy:
+    needs: dockerize
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+#     - id: 'auth'
+#       name: 'Authenticate to Google Cloud'
+#       uses: 'google-github-actions/auth@v0'
+#       with:
+#         token_format: 'access_token'
+#         workload_identity_provider: 'projects/350136741191/locations/global/workloadIdentityPools/deploy-pool/providers/auth-provider'
+#         service_account: 'deployment@spartan-archive-363215.iam.gserviceaccount.com'
+        
+#     - name: Set up GKE credentials
+#       uses: google-github-actions/get-gke-credentials@v0
+#       with:
+#         cluster_name: ${{ env.GKE_CLUSTER }}
+#         location: ${{ env.GKE_ZONE }}
+        
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
+
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
+      
+    - name: 'Set auth'
+      run: 'gcloud auth activate-service-account 350136741191-compute@developer.gserviceaccount.com --key-file=key.json'
+      
+    - name: 'Connect to Shell'
+      run: 'gcloud cloud-shell ssh'
+      
+    - name: Deploy
+      run: |-
+         pwd
+     
