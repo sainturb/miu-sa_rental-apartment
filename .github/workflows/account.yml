@@ -1,7 +1,7 @@
 name: Account Service
 
-env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+# env:
+#   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
 #   GAR_LOCATION: us-central1
 #   GKE_CLUSTER: cluster-1
 #   GKE_ZONE: us-central1-c
@@ -81,7 +81,7 @@ jobs:
       run: gcloud auth activate-service-account ${{ secrets.GKE_ACCOUNT }} --key-file=key.json
       
     - name: Set Project ID
-      run: gcloud config set project ${{ env.PROJECT_ID }}
+      run: gcloud config set project ${{ secrets.GKE_PROJECT }}
       
     - name: Connect to Shell
       run: gcloud cloud-shell ssh
