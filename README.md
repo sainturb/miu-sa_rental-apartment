@@ -3,7 +3,7 @@
 2. Samreth Kem
 3. Sumayya Jahan
 4. Yumjirdulam Chinbat
-5. Anthonyo Michael
+5. Antonyo Michael
 6. Matthew Stephens
 7. Tsinat Mehari Kidane
 
