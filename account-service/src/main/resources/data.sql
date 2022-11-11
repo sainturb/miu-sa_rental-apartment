@@ -20,3 +20,14 @@ WHERE
     NOT EXISTS (
             SELECT user_id FROM users_roles WHERE user_id = 2 AND roles_id = 2
         );
+
+INSERT INTO users_roles
+(user_id, roles_id)
+SELECT 3, 3
+    WHERE
+    NOT EXISTS (
+            SELECT user_id FROM users_roles WHERE user_id = 2 AND roles_id = 2
+        );
+
+SELECT setval('users_id_seq',4,false);
+SELECT setval('role_id_seq',4,false);

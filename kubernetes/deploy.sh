@@ -1,5 +1,7 @@
 cd kubernetes-manifests
-cd account-db
+cd others
+sh elastic.sh && sh kafka.sh && sh kafka-ui.sh && sh redis.sh
+cd ../account-db
 sh run.sh
 cd ../account
 sh run.sh
